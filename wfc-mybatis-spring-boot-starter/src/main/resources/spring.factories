@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wfc.starter.mybatis.autoconfigure.DataSourceConfig,\
+com.wfc.starter.mybatis.autoconfigure.MybatisPlusConfig

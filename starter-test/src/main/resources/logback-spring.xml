@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <!-- SpringMvc项目使用property标签-->
+    <springProperty scope="context" name="LOG_HOME" source="log.location" defaultValue="/alidata/log"/>
+    <springProperty scope="context" name="log.level" source="log.level" defaultValue="INFO"/>
+    <springProperty scope="context" name="log.sql.level" source="log.sql.level" defaultValue="WARN"/>
+    <springProperty scope="context" name="log.opensearch.level" source="log.opensearch.level"  defaultValue="WARN"/>
+    <springProperty scope="context" name="log.max.history" source="log.max.history" defaultValue="14"/>
+    <springProperty scope="context" name="log.file.max.size" source="log.file.max.size" defaultValue="500MB"/>
+    <springProperty scope="context" name="log.appender.std" source="log.appender.std" defaultValue="PROJECT"/>
+    <springProperty scope="context" name="log.appender.err" source="log.appender.err" defaultValue="ERROR"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- 按照每天生成日志文件 只记录到INFO级别-->
+    <appender name="PROJECT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/project.log</file>
+        <!-- 记录到INFO级别及以上，过滤掉 TRACE 和 DEBUG 级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${log.level}</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <fileNamePattern>${LOG_HOME}/old/project.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--日志文件最大的大小,当超过maxFileSize中指定大大小时，文件名中的变量%i会加一-->
+                <maxFileSize>${log.file.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--日志文件保留天数-->
+            <maxHistory>${log.max.history}</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread][%X{PtxId}] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ERROR级别日志 -->
+    <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender-->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/error.log</file>
+        <!-- 过滤器，只记录ERROR级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 最常用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责出发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/old/error.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--日志文件最大的大小,当超过maxFileSize中指定大大小时，文件名中的变量%i会加一-->
+                <maxFileSize>${log.file.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            !--日志文件保留天数-->
+            <maxHistory>${log.max.history}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %line 行数 %msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread][%X{PtxId}] %-5level %logger{50} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="jdbc.sqlonly" level="${log.sql.level}" />
+    <logger name="jdbc.sqltiming" level="OFF"/>
+    <logger name="jdbc.audit" level="OFF"/>
+    <logger name="jdbc.resultset" level="OFF"/>
+    <logger name="jdbc.resultsettable" level="OFF"/>
+    <logger name="jdbc.connection" level="OFF"/>
+    <logger name="com.apache.ibatis" level="${log.sql.level}"/>
+    <logger name="com.ibatis" level="${log.sql.level}"/>
+    <logger name="java.sql.Connection" level="${log.sql.level}"/>
+    <logger name="java.sql.Statement" level="${log.sql.level}"/>
+    <logger name="java.sql.PreparedStatement" level="${log.sql.level}"/>
+    <logger name="java.sql.ResultSet" level="${log.sql.level}"/>
+    <logger name="org.dozer" level="WARN"/>
+    <logger name="org.apache.http" level="WARN"/>
+    <logger name="org.springframework.jmx" level="WARN" />
+    <logger name="org.apache.zookeeper" level="WARN" />
+    <logger name="org.apache.curator" level="WARN" />
+
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="${log.appender.std}"/>
+        <appender-ref ref="${log.appender.err}"/>
+    </root>
+
+    <!-- SpringBoot 不同环境的不同配置 -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="PROJECT"/>
+            <appender-ref ref="ERROR"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="pre,prod">
+        <root level="INFO">
+            <appender-ref ref="PROJECT"/>
+            <appender-ref ref="ERROR"/>
+        </root>
+    </springProfile>
+
+
+</configuration>

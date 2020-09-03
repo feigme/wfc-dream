@@ -1,0 +1,26 @@
+# 应用程序相关配置
+spring:
+  application:
+    name: spring-boot-demo
+  banner:
+    charset: UTF-8
+    location: classpath:banner.txt
+  profiles:
+    active: dev
+    include:
+      - mybatis
+      - swagger
+
+
+# Tomcat相关配置
+server:
+  servlet:
+    context-path: /    # 项目访问路径
+  tomcat:
+    max-threads: 1000     # tomcat线程池大小设置
+    min-spare-threads: 30 # tomcat初始化线程数量
+    uri-encoding: UTF-8   # tomcat编码
+
+wfc:
+  swagger:
+    enabled: true
