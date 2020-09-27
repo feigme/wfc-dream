@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @create by 2020-08-18 10:31
  */
 @Data
-@ConfigurationProperties(prefix = "wfc.swagger")
+@ConfigurationProperties(prefix = "swagger")
 public class SwaggerProperties {
 
     private Boolean enabled;

@@ -10,6 +10,7 @@ spring:
     include:
       - mybatis
       - swagger
+      - auth
 
 
 # Tomcat相关配置
@@ -21,6 +22,3 @@ server:
     min-spare-threads: 30 # tomcat初始化线程数量
     uri-encoding: UTF-8   # tomcat编码
 
-wfc:
-  swagger:
-    enabled: true

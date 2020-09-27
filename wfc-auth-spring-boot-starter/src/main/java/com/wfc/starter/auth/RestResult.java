@@ -1,4 +1,4 @@
-package com.wfc.starter.web;
+package com.wfc.starter.auth;
 
 import lombok.Data;
 

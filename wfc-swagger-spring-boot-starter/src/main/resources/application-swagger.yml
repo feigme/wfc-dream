@@ -1,9 +1,8 @@
 # swagger2配置
-wfc:
-  swagger:
-    base-package: com.wfc.starter
-    description: '-'
-    title: ${app.name:spring-boot-demo}
-    url: ''
-    version: 1.0
-    enabled: ${app.swagger:false}
+swagger:
+  base-package: ${wfc.swagger.basePackage}
+  description: '-'
+  title: ${app.name:spring-boot-demo}
+  url: ''
+  version: 1.0
+  enabled: ${wfc.swagger.enabled:false}

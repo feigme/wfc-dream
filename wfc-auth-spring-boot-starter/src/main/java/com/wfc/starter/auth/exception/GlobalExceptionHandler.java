@@ -1,6 +1,6 @@
-package com.wfc.starter.web.config;
+package com.wfc.starter.auth.exception;
 
-import com.wfc.starter.web.RestResult;
+import com.wfc.starter.auth.RestResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

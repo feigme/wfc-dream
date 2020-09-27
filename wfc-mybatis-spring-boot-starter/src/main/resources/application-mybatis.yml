@@ -1,12 +1,12 @@
 # 数据库配置
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    schema: classpath:db/schema-h2.sql
-    data: classpath:db/data-h2.sql
-    url: jdbc:h2:mem:test
-    username: root
-    password: test
+    driver-class-name: ${wfc.mybatis.datasource.driver}
+    url: ${wfc.mybatis.datasource.url}
+    username: ${wfc.mybatis.datasource.username}
+    password: ${wfc.mybatis.datasource.password}
+    schema: ${wfc.mybatis.init.schema}
+    data: ${wfc.mybatis.init.data}
 
 # 连接池配置
 datasource:

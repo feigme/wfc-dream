@@ -1,5 +1,6 @@
 package com.wfc.starter.web.controller.demo;
 
+import com.wfc.starter.auth.RestResult;
 import com.wfc.starter.dal.demo.entity.DemoUserDO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,10 @@ public class DemoUserController {
     @ApiOperation(value = "获取用户信息", notes = "根据id获取用户信息")
     @RequestMapping("/user")
     @ResponseBody
-    public DemoUserDO user() {
+    public RestResult user() {
         DemoUserDO demoUserDO = new DemoUserDO();
         demoUserDO.setName("aaa");
-        return demoUserDO;
+        return RestResult.success(demoUserDO);
     }
 
 }

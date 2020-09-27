@@ -1,0 +1,20 @@
+log.location: /Users/guohui/temp/log
+
+wfc:
+  mybatis:
+    datasource:
+      driver: org.h2.Driver
+      url: jdbc:h2:mem:test
+      username: root
+      password: test
+    init:
+      schema: classpath:db/schema-h2.sql
+      data: classpath:db/data-h2.sql
+  swagger:
+    enabled: true
+    base-package: com.test
+  auth:
+    ignore:
+      get:
+        - /demo/user
+        - /**/*.ico
