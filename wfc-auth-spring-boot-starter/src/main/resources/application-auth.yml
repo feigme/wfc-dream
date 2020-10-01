@@ -1,1 +1,7 @@
 # auth配置
+wfc:
+  auth:
+    login-and-register-url:
+      - /account/login
+      - /account/logout
+      - /account/register

@@ -16,6 +16,8 @@ public class CustomAuthProperties {
 
     private final IgnorePath ignore = new IgnorePath();
 
+    private List<String> loginAndRegisterUrl = new ArrayList();
+
     @Data
     public static class IgnorePath {
         /**

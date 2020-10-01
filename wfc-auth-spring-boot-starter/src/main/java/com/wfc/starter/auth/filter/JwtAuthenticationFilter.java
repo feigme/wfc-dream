@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,8 +40,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        boolean isLogin = this.checkUrl(request, customAuthProperties.getLoginAndRegisterUrl());
+
         // 过滤链接
-        if (ignoreUrl(request)) {
+        if (isLogin || ignoreUrl(request)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -48,7 +51,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // jwt检查
         String jwt = jwtHandler.getJwtFromRequest(request);
         if (StringUtils.isEmpty(jwt)) {
-
             this.responseWrite(response, RestResult.failure("请先登录！"));
             return;
         }
@@ -70,7 +72,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean ignoreUrl(HttpServletRequest request) {
-
         HttpMethod httpMethod = HttpMethod.resolve(request.getMethod());
         if (httpMethod == null) {
             httpMethod = HttpMethod.GET;

@@ -1,6 +1,6 @@
 # swagger2配置
 swagger:
-  base-package: ${wfc.swagger.basePackage}
+  base-package: ${wfc.swagger.base-package}
   description: '-'
   title: ${app.name:spring-boot-demo}
   url: ''

@@ -18,3 +18,4 @@ wfc:
       get:
         - /demo/user
         - /**/*.ico
+

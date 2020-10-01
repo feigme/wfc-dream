@@ -1,6 +1,7 @@
 package com.wfc.starter.dal.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.wfc.starter.dal.BaseDO;
 import lombok.Data;
 
 /**
@@ -9,8 +10,7 @@ import lombok.Data;
  */
 @Data
 @TableName("user")
-public class DemoUserDO {
-    private Long id;
+public class DemoUserDO extends BaseDO {
     private String name;
     private Integer age;
     private String email;

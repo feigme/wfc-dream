@@ -21,4 +21,3 @@ server:
     max-threads: 1000     # tomcat线程池大小设置
     min-spare-threads: 30 # tomcat初始化线程数量
     uri-encoding: UTF-8   # tomcat编码
-

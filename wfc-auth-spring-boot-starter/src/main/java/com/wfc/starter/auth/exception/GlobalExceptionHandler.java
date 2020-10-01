@@ -18,7 +18,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     public RestResult<String> exceptionHandler(Exception e) {
-        log.warn("controller exception", e);
         return RestResult.failure(e.getMessage());
     }
 
