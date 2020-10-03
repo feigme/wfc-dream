@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     public RestResult<String> exceptionHandler(Exception e) {
+        log.error("has exception", e);
         return RestResult.failure(e.getMessage());
     }
 

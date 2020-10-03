@@ -14,7 +14,7 @@ public class JwtProperties {
     /**
      * jwt 加密 key
      */
-    private String key = "wfc";
+    private String key = "wfc4hda8hd2bwds492";
 
     /**
      * jwt 过期时间，默认值：600000 {@code 10 分钟}.

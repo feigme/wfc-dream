@@ -12,7 +12,7 @@ public interface AccountService {
      * @param password
      * @return
      */
-    WfcAccountDO loginByPwd(String loginName, String password);
+    String loginByPwd(String loginName, String password);
 
     /**
      * 根据手机号码登陆

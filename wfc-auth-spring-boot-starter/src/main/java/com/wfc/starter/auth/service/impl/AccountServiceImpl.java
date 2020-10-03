@@ -4,6 +4,7 @@ import com.wfc.starter.auth.constant.AccountEnableEnum;
 import com.wfc.starter.auth.dal.entity.WfcAccountDO;
 import com.wfc.starter.auth.dal.mapper.WfcAccountMapper;
 import com.wfc.starter.auth.exception.WfcAuthException;
+import com.wfc.starter.auth.jwt.JwtHandler;
 import com.wfc.starter.auth.service.AccountService;
 import com.wfc.starter.auth.web.cmd.PwdRegisterCmd;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private WfcAccountMapper wfcAccountMapper;
+    @Autowired
+    private JwtHandler jwtHandler;
 
     @Override
-    public WfcAccountDO loginByPwd(String loginName, String password) {
+    public String loginByPwd(String loginName, String password) {
         Validate.notBlank(loginName, "登陆账号为空！");
         Validate.notBlank(password, "登陆密码为空！");
 
@@ -45,7 +48,7 @@ public class AccountServiceImpl implements AccountService {
             throw new WfcAuthException("密码错误！");
         }
 
-        return accountDO;
+        return jwtHandler.createJWT(true, accountDO.getId(), accountDO.getLoginName());
     }
 
     @Override
@@ -81,4 +84,5 @@ public class AccountServiceImpl implements AccountService {
 
         return accountDO;
     }
+
 }

@@ -26,6 +26,13 @@ public class DemoUserController {
         return RestResult.success(demoUserDO);
     }
 
+    @ApiOperation(value = "获取用户信息", notes = "根据id获取用户信息")
+    @RequestMapping("/userCenter")
+    @ResponseBody
+    public RestResult userCenter() {
+        return RestResult.success();
+    }
+
 
 
 }
