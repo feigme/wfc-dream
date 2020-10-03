@@ -77,7 +77,7 @@ public class JwtHandler {
 
             // 校验cache中的JWT是否与当前的一致，不一致则代表用户已注销/用户在不同设备登录，均代表JWT已过期
             String cacheToken = map.get(key);
-            if (cacheToken != null && !StringUtils.equals(jwt, cacheToken)) {
+            if (!StringUtils.equals(jwt, cacheToken)) {
                 throw new WfcAuthException("Token 过期");
             }
             return claims;
