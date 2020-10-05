@@ -62,9 +62,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public WfcAccountDO registerByPwd(PwdRegisterCmd cmd) {
         Validate.notNull(cmd, "参数为null！");
-        Validate.notNull(cmd.getLoginName(), "登陆账号为空！");
-        Validate.notNull(cmd.getPassword(), "登陆密码为空！");
-        Validate.notNull(cmd.getConfirmPassword(), "确认密码为空！");
+        Validate.notBlank(cmd.getLoginName(), "登陆账号为空！");
+        Validate.isTrue(cmd.getLoginName().length() >= 6 && cmd.getLoginName().length() <= 20, "账号长度6~20个字符！");
+        Validate.notBlank(cmd.getPassword(), "登陆密码为空！");
+        Validate.isTrue(cmd.getPassword().length() >= 6 && cmd.getPassword().length() <= 14, "密码长度6~14个字符！");
+        Validate.notBlank(cmd.getConfirmPassword(), "确认密码为空！");
         Validate.isTrue(StringUtils.equals(cmd.getPassword(), cmd.getConfirmPassword()), "密码不一致！");
 
         WfcAccountDO accountDO = wfcAccountMapper.getAccountByLoginName(cmd.getLoginName());

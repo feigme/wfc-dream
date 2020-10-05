@@ -15,10 +15,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GlobalExceptionHandler {
 
 
-    @ExceptionHandler
+    @ExceptionHandler(Exception.class)
     @ResponseBody
     public RestResult<String> exceptionHandler(Exception e) {
         log.error("has exception", e);
+        return RestResult.failure("系统出现异常！");
+    }
+
+    @ExceptionHandler(WfcAuthException.class)
+    @ResponseBody
+    public RestResult exceptionHandler(WfcAuthException e){
+        return RestResult.failure(e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseBody
+    public RestResult exceptionHandler(IllegalArgumentException e){
         return RestResult.failure(e.getMessage());
     }
 
