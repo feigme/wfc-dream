@@ -8,8 +8,7 @@
     <springProperty scope="context" name="log.sql.level" source="log.sql.level" defaultValue="WARN"/>
     <springProperty scope="context" name="log.max.history" source="log.max.history" defaultValue="14"/>
     <springProperty scope="context" name="log.file.max.size" source="log.file.max.size" defaultValue="500MB"/>
-    <springProperty scope="context" name="log.appender.std" source="log.appender.std" defaultValue="PROJECT"/>
-    <springProperty scope="context" name="log.appender.err" source="log.appender.err" defaultValue="ERROR"/>
+
 
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -87,16 +86,11 @@
     <logger name="org.apache.curator" level="WARN" />
 
 
-    <!-- 日志输出级别 -->
-    <root level="INFO">
-        <appender-ref ref="${log.appender.std}"/>
-        <appender-ref ref="${log.appender.err}"/>
-    </root>
-
     <!-- SpringBoot 不同环境的不同配置 -->
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ERROR"/>
         </root>
     </springProfile>
 

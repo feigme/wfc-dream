@@ -6,6 +6,7 @@ import com.wfc.starter.auth.dal.mapper.WfcAccountMapper;
 import com.wfc.starter.auth.exception.WfcAuthException;
 import com.wfc.starter.auth.jwt.JwtHandler;
 import com.wfc.starter.auth.service.AccountService;
+import com.wfc.starter.auth.web.cmd.PwdLoginCmd;
 import com.wfc.starter.auth.web.cmd.PwdRegisterCmd;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -30,11 +31,12 @@ public class AccountServiceImpl implements AccountService {
     private JwtHandler jwtHandler;
 
     @Override
-    public String loginByPwd(String loginName, String password) {
-        Validate.notBlank(loginName, "登陆账号为空！");
-        Validate.notBlank(password, "登陆密码为空！");
+    public String loginByPwd(PwdLoginCmd pwdLoginCmd) {
+        Validate.notNull(pwdLoginCmd, "登录参数为null");
+        Validate.notBlank(pwdLoginCmd.getLoginName(), "登陆账号为空！");
+        Validate.notBlank(pwdLoginCmd.getPassword(), "登陆密码为空！");
 
-        WfcAccountDO accountDO = wfcAccountMapper.getAccountByLoginName(loginName);
+        WfcAccountDO accountDO = wfcAccountMapper.getAccountByLoginName(pwdLoginCmd.getLoginName());
         if (accountDO == null) {
             throw new WfcAuthException("当前用户不存在！");
         }
@@ -43,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
             throw new WfcAuthException("当前用户被锁定！");
         }
 
-        String encyptPwd = DigestUtils.sha512Hex(DigestUtils.sha512Hex(password) + accountDO.getSlat());
+        String encyptPwd = DigestUtils.sha512Hex(DigestUtils.sha512Hex(pwdLoginCmd.getPassword()) + accountDO.getSlat());
         if (!StringUtils.equals(encyptPwd, accountDO.getPassword())) {
             throw new WfcAuthException("密码错误！");
         }

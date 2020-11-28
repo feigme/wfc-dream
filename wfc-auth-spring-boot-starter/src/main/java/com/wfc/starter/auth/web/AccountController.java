@@ -4,10 +4,12 @@ import com.wfc.starter.auth.RestResult;
 import com.wfc.starter.auth.dal.entity.WfcAccountDO;
 import com.wfc.starter.auth.jwt.JwtHandler;
 import com.wfc.starter.auth.service.AccountService;
+import com.wfc.starter.auth.web.cmd.PwdLoginCmd;
 import com.wfc.starter.auth.web.cmd.PwdRegisterCmd;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +30,8 @@ public class AccountController {
     private JwtHandler jwtHandler;
 
     @PostMapping("/login")
-    public RestResult login(String loginName, String password) {
-        String jwt = accountService.loginByPwd(loginName, password);
+    public RestResult login(@RequestBody PwdLoginCmd pwdLoginCmd) {
+        String jwt = accountService.loginByPwd(pwdLoginCmd);
         return RestResult.success(jwt);
     }
 
