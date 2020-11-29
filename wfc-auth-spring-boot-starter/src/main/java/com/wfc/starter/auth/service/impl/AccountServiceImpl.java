@@ -89,4 +89,8 @@ public class AccountServiceImpl implements AccountService {
         return accountDO;
     }
 
+    @Override
+    public WfcAccountDO getAccountById(Long id) {
+        return wfcAccountMapper.selectById(id);
+    }
 }

@@ -31,4 +31,12 @@ public interface AccountService {
      */
     WfcAccountDO registerByPwd(PwdRegisterCmd cmd);
 
+    /**
+     * 根据id获取对象
+     *
+     * @param id
+     * @return
+     */
+    WfcAccountDO getAccountById(Long id);
+
 }

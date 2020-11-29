@@ -5,6 +5,7 @@ import com.wfc.starter.auth.RestResult;
 import com.wfc.starter.auth.autoconfigure.CustomAuthProperties;
 import com.wfc.starter.auth.exception.WfcAuthException;
 import com.wfc.starter.auth.jwt.JwtHandler;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,16 +51,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // jwt检查
         String jwt = jwtHandler.getJwtFromRequest(request);
         if (StringUtils.isEmpty(jwt)) {
-            this.responseWrite(response, RestResult.failure("请先登录！"));
+            this.responseWrite(response, RestResult.newInstance(401, "请先登录！", null));
             return;
         }
 
         try {
-            String username = jwtHandler.getUsernameFromJWT(jwt);
-            RequestContextHolder.currentRequestAttributes().setAttribute("username", username, RequestAttributes.SCOPE_REQUEST);
+            Claims claims = jwtHandler.getClaimsFromJWT(jwt);
+            RequestContextHolder.currentRequestAttributes().setAttribute("username", claims.getSubject(), RequestAttributes.SCOPE_REQUEST);
+            RequestContextHolder.currentRequestAttributes().setAttribute("userId", Long.valueOf(claims.getId()), RequestAttributes.SCOPE_REQUEST);
             filterChain.doFilter(request, response);
         } catch (WfcAuthException e) {
-            this.responseWrite(response, RestResult.failure(e.getMessage()));
+            this.responseWrite(response, RestResult.newInstance(401, e.getMessage(), null));
             return;
         }
 

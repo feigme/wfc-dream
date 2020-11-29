@@ -123,6 +123,17 @@ public class JwtHandler {
     }
 
     /**
+     * 根据 jwt 信息
+     *
+     * @param jwt
+     * @return
+     * @throws WfcAuthException
+     */
+    public Claims getClaimsFromJWT(String jwt) throws WfcAuthException {
+        return parseJWT(jwt);
+    }
+
+    /**
      * 从 request 的 header 中获取 JWT
      *
      * @param request 请求

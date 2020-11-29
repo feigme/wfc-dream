@@ -19,4 +19,4 @@ create table wfc_account (
   `slat` varchar(8) DEFAULT NULL COMMENT '盐',
   `disabled` tinyint(4) DEFAULT '0' COMMENT '是否禁用(默认是0)',
   PRIMARY KEY (id)
-)
+);

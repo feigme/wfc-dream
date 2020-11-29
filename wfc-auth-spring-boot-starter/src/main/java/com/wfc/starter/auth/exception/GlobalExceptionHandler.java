@@ -24,13 +24,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(WfcAuthException.class)
     @ResponseBody
-    public RestResult exceptionHandler(WfcAuthException e){
-        return RestResult.failure(e.getMessage());
+    public RestResult exceptionHandler(WfcAuthException e) {
+        RestResult restResult = RestResult.failure(e.getMessage());
+        restResult.setCode(401);
+        return restResult;
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
-    public RestResult exceptionHandler(IllegalArgumentException e){
+    public RestResult exceptionHandler(IllegalArgumentException e) {
         return RestResult.failure(e.getMessage());
     }
 
