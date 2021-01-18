@@ -42,9 +42,9 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public RestResult register(PwdRegisterCmd pwdRegisterCmd) {
-        WfcAccountDO accountDO = accountService.registerByPwd(pwdRegisterCmd);
-        return RestResult.success(accountDO);
+    public RestResult register(@RequestBody PwdRegisterCmd pwdRegisterCmd) {
+        String jwt = accountService.registerByPwd(pwdRegisterCmd);
+        return RestResult.success(jwt);
     }
 
 }

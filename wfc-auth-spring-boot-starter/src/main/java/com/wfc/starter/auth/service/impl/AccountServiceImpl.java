@@ -62,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public WfcAccountDO registerByPwd(PwdRegisterCmd cmd) {
+    public String registerByPwd(PwdRegisterCmd cmd) {
         Validate.notNull(cmd, "参数为null！");
         Validate.notBlank(cmd.getLoginName(), "登陆账号为空！");
         Validate.isTrue(cmd.getLoginName().length() >= 6 && cmd.getLoginName().length() <= 20, "账号长度6~20个字符！");
@@ -86,7 +86,7 @@ public class AccountServiceImpl implements AccountService {
         accountDO.setDisabled(AccountEnableEnum.ENABLE.getCode());
         wfcAccountMapper.insert(accountDO);
 
-        return accountDO;
+        return jwtHandler.createJWT(true, accountDO.getId(), accountDO.getLoginName());
     }
 
     @Override

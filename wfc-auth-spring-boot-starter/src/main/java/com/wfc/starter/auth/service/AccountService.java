@@ -29,7 +29,7 @@ public interface AccountService {
      * @param cmd
      * @return
      */
-    WfcAccountDO registerByPwd(PwdRegisterCmd cmd);
+    String registerByPwd(PwdRegisterCmd cmd);
 
     /**
      * 根据id获取对象

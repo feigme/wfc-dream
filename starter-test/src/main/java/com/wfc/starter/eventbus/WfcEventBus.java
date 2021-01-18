@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -30,20 +29,12 @@ public class WfcEventBus {
     private long keepAliveTime = 5L;
 
     public WfcEventBus() {
-        executor = newExecutor();
-        eventBus = new AsyncEventBus(executor,
-                (ex,
-                 context) -> log.error("EventBusError, post event exception, event={}, handler={}",
-                        context.getEvent(), context.getSubscriber(), ex));
-    }
-
-    private ThreadPoolExecutor newExecutor() {
-        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("eventbus-%d").build();
-        return new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, TimeUnit.MINUTES,
-                new LinkedBlockingQueue<>(maxQueueSize), namedThreadFactory,
+        executor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, TimeUnit.MINUTES,
+                new LinkedBlockingQueue<>(maxQueueSize), new ThreadFactoryBuilder().setNameFormat("eventbus-%d").build(),
                 (r,
                  executor1) -> log.error("EventBusError, event task was rejected, task={}, poolStatus={}",
                         r, poolStatus()));
+        eventBus = new AsyncEventBus(executor);
     }
 
     private Map<String, Number> poolStatus() {
