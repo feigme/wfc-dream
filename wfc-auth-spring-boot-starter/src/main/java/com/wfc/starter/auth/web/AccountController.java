@@ -1,7 +1,6 @@
 package com.wfc.starter.auth.web;
 
 import com.wfc.starter.auth.RestResult;
-import com.wfc.starter.auth.dal.entity.WfcAccountDO;
 import com.wfc.starter.auth.jwt.JwtHandler;
 import com.wfc.starter.auth.service.AccountService;
 import com.wfc.starter.auth.web.cmd.PwdLoginCmd;

@@ -28,7 +28,6 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        System.out.println(swaggerProperties.getBasePackage());
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()

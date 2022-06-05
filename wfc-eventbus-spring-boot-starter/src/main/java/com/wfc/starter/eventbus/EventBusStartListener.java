@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -16,7 +15,6 @@ import java.util.Map;
  * @create by 2020-10-27 22:08
  */
 @Slf4j
-@Component
 public class EventBusStartListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired

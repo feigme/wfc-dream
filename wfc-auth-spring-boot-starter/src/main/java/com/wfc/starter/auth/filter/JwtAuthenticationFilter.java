@@ -31,7 +31,7 @@ import java.util.List;
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final static AntPathMatcher pathMatcher = new AntPathMatcher();
+    private final static AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
     @Autowired
     private CustomAuthProperties customAuthProperties;
@@ -105,7 +105,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         for (String url : urls) {
-            if (pathMatcher.match(url, request.getServletPath())) {
+            if (PATH_MATCHER.match(url, request.getServletPath())) {
                 return true;
             }
         }

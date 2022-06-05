@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @create by 2020-10-27 22:13
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface WfcEventHandler {
 
     /**

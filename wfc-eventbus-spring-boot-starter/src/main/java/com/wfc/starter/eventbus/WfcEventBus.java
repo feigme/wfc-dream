@@ -5,7 +5,6 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.wfc.starter.eventbus.event.WfcEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  * @create by 2020-10-27 22:01
  */
 @Slf4j
-@Component
 public class WfcEventBus {
 
     private final ThreadPoolExecutor executor;

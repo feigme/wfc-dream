@@ -4,6 +4,9 @@ import com.wfc.starter.auth.dal.entity.WfcAccountDO;
 import com.wfc.starter.auth.web.cmd.PwdLoginCmd;
 import com.wfc.starter.auth.web.cmd.PwdRegisterCmd;
 
+/**
+ * @author guohui
+ */
 public interface AccountService {
 
     /**

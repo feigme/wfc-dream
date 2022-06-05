@@ -11,6 +11,7 @@ spring:
       - mybatis
       - swagger
       - auth
+      - eventbus
 
 
 # Tomcat相关配置

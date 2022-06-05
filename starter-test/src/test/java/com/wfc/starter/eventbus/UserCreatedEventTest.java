@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @create by 2020-10-27 22:27
  */
 @RunWith(SpringRunner.class)
-//@EnableAutoConfiguration
 @SpringBootTest()
 @Slf4j
 public class UserCreatedEventTest {
@@ -28,7 +27,7 @@ public class UserCreatedEventTest {
             wfcEventBus.post(new UserCreatedEvent((long) i, "aaa"));
             log.info("post event, id: {}", i);
         }
-        Thread.sleep(60000);
+        Thread.sleep(1000);
     }
 
 }

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * @author 飞影
  * @create by 2020-10-27 22:18
  */
+@WfcEventHandler
 @Component
 @Slf4j
-@WfcEventHandler
 public class ScoreEventHandler {
 
     @Subscribe

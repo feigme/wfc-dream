@@ -1,22 +1,12 @@
 log.location: /Users/guohui/temp/log
 log.sql.level: info
 
-wfc:
-  mybatis:
-    datasource:
-      driver: net.sf.log4jdbc.DriverSpy
-      url: jdbc:log4jdbc:h2:mem:test
-      username: root
-      password: test
-    init:
-      schema: classpath:db/schema-h2.sql
-      data: classpath:db/data-h2.sql
-  swagger:
-    enabled: true
-    base-package: com.test
-  auth:
-    ignore:
-      get:
-        - /demo/user
-        - /**/*.ico
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test-starter?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+
 

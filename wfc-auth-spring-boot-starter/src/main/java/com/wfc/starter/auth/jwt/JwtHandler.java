@@ -142,7 +142,7 @@ public class JwtHandler {
     public String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith(JWT_PREFIX)) {
-            return bearerToken.substring(7);
+            return bearerToken.substring(JWT_PREFIX.length());
         }
         return null;
     }

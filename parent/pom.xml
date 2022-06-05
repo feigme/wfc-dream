@@ -41,26 +41,16 @@
 
             <!--mysql-->
             <dependency>
-                <groupId>org.bgee.log4jdbc-log4j2</groupId>
-                <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-                <version>1.16</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.log4jdbc</groupId>
-                <artifactId>log4jdbc</artifactId>
-                <version>1.2</version>
-            </dependency>
-            <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.17</version>
+                <version>6.0.6</version>
             </dependency>
 
             <!--mybatisplus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.2.0</version>
+                <version>3.5.1</version>
             </dependency>
 
             <!-- 数据源 -->
@@ -68,12 +58,6 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.17</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.23</version>
             </dependency>
 
             <!-- swagger start -->
@@ -128,12 +112,14 @@
                 </configuration>
             </plugin>
 
+            <!--配置PMD，结合alibaba代码扫描规范-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.8</version>
                 <configuration>
                     <rulesets>
+                        <!--可以引用ali的配置-->
                         <ruleset>rulesets/java/ali-comment.xml</ruleset>
                         <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
                         <ruleset>rulesets/java/ali-constant.xml</ruleset>
@@ -146,6 +132,8 @@
                         <ruleset>rulesets/java/ali-set.xml</ruleset>
                     </rulesets>
                     <printFailingErrors>true</printFailingErrors>
+                    <!--指定失败文件的失败规则排除-->
+                    <excludeFromFailureFile>pmd-skip.properties</excludeFromFailureFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -165,6 +153,26 @@
                 </dependencies>
             </plugin>
 
+            <!--CheckStyle配置-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failsOnError>true</failsOnError>
+                    <consoleOutput>true</consoleOutput>
+                    <encoding>UTF-8</encoding>
+                    <configLocation>wfc-checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

@@ -2,6 +2,11 @@ package com.wfc.starter.service;
 
 import com.wfc.starter.service.vo.UserInfoVO;
 
+/**
+ * 用户信息
+ *
+ * @author guohui
+ */
 public interface UserService {
 
     /**

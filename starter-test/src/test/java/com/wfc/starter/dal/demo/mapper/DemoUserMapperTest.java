@@ -49,7 +49,6 @@ public class DemoUserMapperTest {
         Assert.assertEquals(1, n);
         Assert.assertNotNull(user.getId());
         System.out.println("id_worker: " + user.getId());
-        Assert.assertEquals(19, user.getId().toString().length());
     }
 
     @Test

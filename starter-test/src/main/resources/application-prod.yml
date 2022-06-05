@@ -3,8 +3,8 @@ log.location: /Users/guohui/temp/log
 wfc:
   mybatis:
     datasource:
-      driver: net.sf.log4jdbc.DriverSpy
-      url: jdbc:log4jdbc:mysql://localhost:3306/test-starter?useUnicode=true&characterEncoding=UTF-8
+      driver: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test-starter?useUnicode=true&characterEncoding=UTF-8
       username: root
       password: 123456
   swagger:
