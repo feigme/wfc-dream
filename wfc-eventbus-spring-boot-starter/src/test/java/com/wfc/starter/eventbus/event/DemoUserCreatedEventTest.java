@@ -35,7 +35,6 @@ public class DemoUserCreatedEventTest {
         } catch (InterruptedException e) {
             log.error("EventBus stop error", e);
         }
-
     }
 }
 

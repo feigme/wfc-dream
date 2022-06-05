@@ -3,6 +3,7 @@ package com.wfc.starter.eventbus;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.wfc.starter.eventbus.autoconfigure.EventBusProperties;
 import com.wfc.starter.eventbus.event.WfcEvent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,23 +15,18 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author 飞影
- * @create by 2020-10-27 22:01
  */
 @Slf4j
 public class WfcEventBus {
 
     private final ThreadPoolExecutor executor;
     private final EventBus eventBus;
-    private int corePoolSize = 5;
-    private int maxPoolSize = 10;
-    private int maxQueueSize = 10000;
-    private long keepAliveTime = 5L;
 
-    public WfcEventBus() {
-        executor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, TimeUnit.MINUTES,
-                new LinkedBlockingQueue<>(maxQueueSize), new ThreadFactoryBuilder().setNameFormat("eventbus-%d").build(),
-                (r,
-                 executor1) -> log.error("EventBusError, event task was rejected, task={}, poolStatus={}",
+
+    public WfcEventBus(EventBusProperties prop) {
+        executor = new ThreadPoolExecutor(prop.getCorePoolSize(), prop.getMaxPoolSize(), prop.getKeepAliveTime(), TimeUnit.MINUTES,
+                new LinkedBlockingQueue<>(prop.getMaxQueueSize()), new ThreadFactoryBuilder().setNameFormat("eventbus-%d").build(),
+                (r, executor1) -> log.error("EventBusError, event task was rejected, task={}, poolStatus={}",
                         r, poolStatus()));
         eventBus = new AsyncEventBus(executor);
     }

@@ -1,0 +1,6 @@
+wfc:
+  eventbus:
+    corePoolSize: 5
+    maxPoolSize: 10
+    maxQueueSize: 1000
+    keepAliveTime: 5
