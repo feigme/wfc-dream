@@ -46,4 +46,5 @@ mybatis-plus:
       id-type: Auto                  # 主键生成策略, 雪花算法
       logic-delete-value: 1
       logic-not-delete-value: 0
+    banner: false
   mapper-locations: classpath*:mapper/**/*Mapper.xml
