@@ -22,7 +22,7 @@ public class EventBusStopListener implements ApplicationListener<ContextClosedEv
         log.info("[wfcEventBus] queue size: {}", wfcEventBus.queueSize());
         while (wfcEventBus.queueSize() > 0) {
             try {
-                Thread.sleep(1000L);
+                Thread.sleep(500L);
             } catch (InterruptedException e) {
                 log.error("EventBus stop error", e);
             }

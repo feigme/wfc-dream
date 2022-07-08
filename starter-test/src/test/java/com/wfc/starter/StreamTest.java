@@ -1,11 +1,14 @@
 package com.wfc.starter;
 
 import com.wfc.starter.dal.demo.entity.DemoUserDO;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +26,12 @@ public class StreamTest {
 
         DemoUserDO demoUserDO = list.stream().filter(p -> p.getAge() != null).max(Comparator.comparing(DemoUserDO::getId)).orElse(null);
         Assert.assertNull(demoUserDO);
+    }
+
+    @Test
+    public void testDate(){
+        Date deadlineTime = new DateTime().plusHours(4320).toDate();
+        System.out.printf(DateFormatUtils.format(deadlineTime, "yyyy-MM-dd HH:mm:ss"));
     }
 
 }

@@ -3,8 +3,6 @@ package com.wfc.starter.dal.demo.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
-
 import com.wfc.starter.dal.demo.entity.DemoUserDO;
 import org.junit.Assert;
 import org.junit.Test;
