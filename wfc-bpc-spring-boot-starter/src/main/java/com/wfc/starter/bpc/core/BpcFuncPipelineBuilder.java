@@ -2,6 +2,8 @@ package com.wfc.starter.bpc.core;
 
 import com.wfc.starter.bpc.exception.BpcValveException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,7 @@ public class BpcFuncPipelineBuilder {
      *
      * @return
      */
-    public BpcFuncPipelineBuilder next(BpcValve valve) {
+    public BpcFuncPipelineBuilder next(BpcValve valve, String valveName) {
         Objects.requireNonNull(valve);
 
         // 包装统计日志
@@ -65,10 +67,10 @@ public class BpcFuncPipelineBuilder {
                 valve.invoke(ctx);
 
                 if (!ctx.isBroken() && valve instanceof BpcRollback) {
-                    rollbackPipeline = rollbackPipeline.andThen(this.logAroundRollback(valve));
+                    rollbackPipeline = rollbackPipeline.andThen(this.logAroundRollback(valve, valveName));
                 }
 
-                log.info("[Pipeline-func] valve: {}, spent: {}ms", valve.getValveName(), System.currentTimeMillis() - s);
+                log.info("[Pipeline-func] valve: {}, spent: {}ms", valveName, System.currentTimeMillis() - s);
                 return ctx;
             } catch (BpcValveException valveException) {
                 // broke
@@ -81,27 +83,33 @@ public class BpcFuncPipelineBuilder {
         return this;
     }
 
+    public BpcForkJoin fork() {
+        return new BpcForkJoin(this);
+    }
+
     /**
      * 并行执行valve
      *
-     * @param valves
+     * @param forkList
      *
      * @return
      */
-    public BpcFuncPipelineBuilder concurrent(BpcValve... valves) {
-        Objects.requireNonNull(valves);
+    private BpcFuncPipelineBuilder concurrent(List<Pair<String, BpcValve>> forkList) {
+        Objects.requireNonNull(forkList);
 
         BpcValveFunc<BpcContext> concurrentFunc = (ctx) -> {
-            List<CompletableFuture<Void>> futureList = new ArrayList<>(valves.length);
-            for (BpcValve valve : valves) {
+            List<CompletableFuture<Void>> futureList = new ArrayList<>(forkList.size());
+            for (Pair<String, BpcValve> pair : forkList) {
+                BpcValve valve = pair.getRight();
+                String valveName = pair.getLeft();
                 CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
                     long s = System.currentTimeMillis();
                     valve.invoke(ctx);
 
                     if (valve instanceof BpcRollback) {
-                        rollbackPipeline = rollbackPipeline.andThen(this.logAroundRollback(valve));
+                        rollbackPipeline = rollbackPipeline.andThen(this.logAroundRollback(valve, valveName));
                     }
-                    log.info("[Pipeline-func] concurrent value: {}, spent: {}ms", valve.getValveName(), System.currentTimeMillis() - s);
+                    log.info("[Pipeline-func] concurrent value: {}, spent: {}ms", valveName, System.currentTimeMillis() - s);
                 });
                 futureList.add(completableFuture);
             }
@@ -120,11 +128,11 @@ public class BpcFuncPipelineBuilder {
         return this;
     }
 
-    private BpcRollbackFunc<BpcContext> logAroundRollback(BpcValve valve) {
+    private BpcRollbackFunc<BpcContext> logAroundRollback(BpcValve valve, String valveName) {
         return (ctx) -> {
             long rs = System.currentTimeMillis();
             ((BpcRollback) valve).rollback(ctx);
-            log.info("[Pipeline-func] rollback value: {}, spent: {}ms", valve.getValveName(), System.currentTimeMillis() - rs);
+            log.info("[Pipeline-func] rollback value: {}, spent: {}ms", valveName, System.currentTimeMillis() - rs);
             return ctx;
         };
     }
@@ -142,5 +150,24 @@ public class BpcFuncPipelineBuilder {
             log.info("[Pipeline-func] 执行pipeline-end：{}, spent: {}ms", pipelineName, System.currentTimeMillis() - (long) ctx.getAttribute("pipelineStartTime", null));
             return ctx;
         }));
+    }
+
+    class BpcForkJoin {
+
+        BpcFuncPipelineBuilder builder;
+        List<Pair<String, BpcValve>> forkList = new ArrayList<>();
+
+        BpcForkJoin(BpcFuncPipelineBuilder builder) {
+            this.builder = builder;
+        }
+
+        BpcForkJoin and(BpcValve valve, String valveName) {
+            forkList.add(new ImmutablePair<>(valveName, valve));
+            return this;
+        }
+
+        BpcFuncPipelineBuilder join() {
+            return builder.concurrent(forkList);
+        }
     }
 }

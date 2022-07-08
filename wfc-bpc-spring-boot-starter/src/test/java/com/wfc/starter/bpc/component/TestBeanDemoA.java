@@ -18,11 +18,6 @@ public class TestBeanDemoA extends BaseBpcValve {
     private String name = "aaaaa";
 
     @Override
-    public String getValveName() {
-        return name;
-    }
-
-    @Override
     public BpcContext invoke(BpcContext context) throws BpcValveException {
         log.info(">>>>>>>>>>>{}", name);
         return context;

@@ -51,15 +51,18 @@ public class PipelineTest {
 
     @Test
     public void testFuncPipeline() {
-        BpcPipeline a = BpcFuncPipelineBuilder.newInvocation("测试流程")
-                .next(testBeanDemoA)
-                .next(testBeanDemoB)
-                .next(testBeanDemoC)
-                .concurrent(testBeanDemoD, testBeanDemoE, testBeanDemoF)
-                .next(testBeanDemoG)
+        BpcPipeline pipe = BpcFuncPipelineBuilder.newInvocation("测试流程")
+                .next(testBeanDemoA, "aaa1")
+                .next(testBeanDemoB, "bbb1")
+                .next(testBeanDemoC, "ccc1")
+                .fork()
+                    .and(testBeanDemoD, "ddd1")
+                    .and(testBeanDemoE, "eee1")
+                    .and(testBeanDemoF, "fff1")
+                .join()
+                .next(testBeanDemoG, "ggg1")
                 .end();
 
-        a.invoke(new BpcTodoContext() {
-        });
+        pipe.invoke(new BpcTodoContext() {});
     }
 }

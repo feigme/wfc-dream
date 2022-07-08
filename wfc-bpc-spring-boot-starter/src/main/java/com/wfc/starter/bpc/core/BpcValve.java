@@ -9,13 +9,6 @@ import com.wfc.starter.bpc.exception.BpcValveException;
 public interface BpcValve {
 
     /**
-     * 设置名称
-     *
-     * @return
-     */
-    String getValveName();
-
-    /**
      * 执行组件
      *
      * @param context
