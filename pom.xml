@@ -22,6 +22,7 @@
         <module>wfc-wxmp-spring-boot-starter</module>
         <module>wfc-eventbus-spring-boot-starter</module>
         <module>wfc-bpc-spring-boot-starter</module>
+        <module>wfc-fsm-spring-boot-starter</module>
     </modules>
 
 </project>

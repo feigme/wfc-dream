@@ -2,7 +2,6 @@ package com.wfc.starter.bpc.core;
 
 import com.wfc.starter.bpc.exception.BpcValveException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -152,7 +151,7 @@ public class BpcFuncPipelineBuilder {
         }));
     }
 
-    class BpcForkJoin {
+    public class BpcForkJoin {
 
         BpcFuncPipelineBuilder builder;
         List<Pair<String, BpcValve>> forkList = new ArrayList<>();
@@ -161,12 +160,12 @@ public class BpcFuncPipelineBuilder {
             this.builder = builder;
         }
 
-        BpcForkJoin and(BpcValve valve, String valveName) {
-            forkList.add(new ImmutablePair<>(valveName, valve));
+        public BpcForkJoin and(BpcValve valve, String valveName) {
+            forkList.add(Pair.of(valveName, valve));
             return this;
         }
 
-        BpcFuncPipelineBuilder join() {
+        public BpcFuncPipelineBuilder join() {
             return builder.concurrent(forkList);
         }
     }

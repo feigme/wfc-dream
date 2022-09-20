@@ -38,6 +38,11 @@
                 <artifactId>commons-codec</artifactId>
                 <version>1.11</version>
             </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
 
             <!--mysql-->
             <dependency>
@@ -91,8 +96,8 @@
             </dependency>
 
             <dependency>
-                <artifactId>guava</artifactId>
                 <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
                 <version>18.0</version>
             </dependency>
 
