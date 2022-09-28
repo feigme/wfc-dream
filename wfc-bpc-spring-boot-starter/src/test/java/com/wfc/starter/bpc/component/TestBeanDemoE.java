@@ -20,6 +20,10 @@ public class TestBeanDemoE extends BaseBpcValve {
     @Override
     public BpcContext invoke(BpcContext context) throws BpcValveException {
         log.info(">>>>>>>>>>>{}", name);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+        }
         return context;
     }
 

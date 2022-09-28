@@ -20,7 +20,8 @@ public class TestBeanDemoD extends BaseBpcValve {
     @Override
     public BpcContext invoke(BpcContext context) throws BpcValveException {
         log.info(">>>>>>>>>>>{}", name);
-        return context;
+                throw new BpcValveException("出现异常");
+//        return context;
     }
 
     @Override

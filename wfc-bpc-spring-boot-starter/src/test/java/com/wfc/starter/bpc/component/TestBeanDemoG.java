@@ -20,8 +20,8 @@ public class TestBeanDemoG extends BaseBpcValve {
     @Override
     public BpcContext invoke(BpcContext context) throws BpcValveException {
         log.info(">>>>>>>>>>>{}", name);
-//        return context;
-        throw new BpcValveException("dkk--sk");
+        return context;
+//        throw new BpcValveException("dkk--sk");
     }
 
     @Override

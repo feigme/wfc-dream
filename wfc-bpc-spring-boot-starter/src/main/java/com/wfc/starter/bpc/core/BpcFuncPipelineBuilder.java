@@ -74,6 +74,13 @@ public class BpcFuncPipelineBuilder {
             } catch (BpcValveException valveException) {
                 // broke
                 log.error("[Pipeline-func] 执行pipeline 异常", valveException);
+                ctx.setMessage(valveException.getMessage());
+                this.broke(ctx);
+                return ctx;
+            } catch (Exception e) {
+                // broke
+                log.error("[Pipeline-func] valve 异常", e);
+                ctx.setMessage(e.getMessage());
                 this.broke(ctx);
                 return ctx;
             }
@@ -114,7 +121,7 @@ public class BpcFuncPipelineBuilder {
             }
             CompletableFuture<Void> future = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[futureList.size()]));
             try {
-                future.get(500L, TimeUnit.MILLISECONDS);
+                future.get(1000L, TimeUnit.MILLISECONDS);
             } catch (Exception e) {
                 log.info("[Pipeline-func] 执行concurrent 超时");
                 this.broke(ctx);
@@ -145,6 +152,9 @@ public class BpcFuncPipelineBuilder {
 
     public BpcPipeline end() {
         return new BpcFuncPipeline<BpcContext>(pipelineName, newPipeline.andThen((ctx) -> {
+            if (ctx.isBroken()) {
+                return ctx;
+            }
             ctx.setFinished(true);
             log.info("[Pipeline-func] 执行pipeline-end：{}, spent: {}ms", pipelineName, System.currentTimeMillis() - (long) ctx.getAttribute("pipelineStartTime", null));
             return ctx;

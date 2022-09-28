@@ -11,8 +11,9 @@ import java.util.function.Supplier;
 public class BpcTodoContext implements BpcContext {
 
     private Map<String, Object> attributes;
-    private boolean broken;
-    private boolean finished;
+    private boolean broken = false;
+    private boolean finished = false;
+    private String message;
 
     @Override
     public <T> T getAttribute(String key) {
@@ -20,6 +21,14 @@ public class BpcTodoContext implements BpcContext {
             attributes = new ConcurrentHashMap<>(16);
         }
         return (T) attributes.get(key);
+    }
+
+    @Override
+    public <T> void putAttribute(String key, T t) {
+        if (attributes == null) {
+            attributes = new ConcurrentHashMap<>(16);
+        }
+        attributes.put(key, t);
     }
 
     @Override
@@ -53,5 +62,15 @@ public class BpcTodoContext implements BpcContext {
     @Override
     public boolean isFinished() {
         return finished;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
