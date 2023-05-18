@@ -1,4 +1,4 @@
-package com.wfc.starter.bpc.core;
+package com.wfc.bpc.core;
 
 /**
  * @author hui.guo

@@ -12,7 +12,6 @@ import java.util.Map;
 
 /**
  * @author 飞影
- * @create by 2020-10-27 22:08
  */
 @Slf4j
 public class EventBusStartListener implements ApplicationListener<ContextRefreshedEvent> {

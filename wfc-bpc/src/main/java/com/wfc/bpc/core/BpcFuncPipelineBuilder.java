@@ -1,6 +1,6 @@
-package com.wfc.starter.bpc.core;
+package com.wfc.bpc.core;
 
-import com.wfc.starter.bpc.exception.BpcValveException;
+import com.wfc.bpc.exception.BpcValveException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 

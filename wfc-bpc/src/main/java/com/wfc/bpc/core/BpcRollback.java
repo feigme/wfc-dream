@@ -1,6 +1,6 @@
-package com.wfc.starter.bpc.core;
+package com.wfc.bpc.core;
 
-import com.wfc.starter.bpc.exception.BpcRollbackException;
+import com.wfc.bpc.exception.BpcRollbackException;
 
 /**
  * @author hui.guo

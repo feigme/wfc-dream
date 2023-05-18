@@ -1,4 +1,4 @@
-package com.wfc.starter.bpc.exception;
+package com.wfc.bpc.exception;
 
 /**
  * @author hui.guo

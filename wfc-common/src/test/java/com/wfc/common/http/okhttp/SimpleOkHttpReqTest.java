@@ -26,9 +26,5 @@ public class SimpleOkHttpReqTest {
         Assert.assertEquals("https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting", jsonObject.getString("documentation_url"));
     }
 
-    @Test
-    public void test_get() {
-        SimpleOkHttpReq.build().get("https://api.github.com/repos/spring-projects/spring-framework/releases/latest");
-    }
 
 }

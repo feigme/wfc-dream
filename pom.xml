@@ -23,6 +23,7 @@
         <module>spring-boot-starters</module>
         <module>wfc-common</module>
         <module>wfc-eventbus</module>
+        <module>wfc-bpc</module>
         <module>wx-tools</module>
     </modules>
 
