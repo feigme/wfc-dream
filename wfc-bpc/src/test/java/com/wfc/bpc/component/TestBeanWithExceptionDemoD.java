@@ -1,7 +1,7 @@
-package com.wfc.starter.bpc.component;
+package com.wfc.bpc.component;
 
-import com.wfc.starter.bpc.core.BaseBpcValve;
-import com.wfc.starter.bpc.core.BpcContext;
+import com.wfc.bpc.core.BaseBpcValve;
+import com.wfc.bpc.core.BpcContext;
 import com.wfc.bpc.exception.BpcRollbackException;
 import com.wfc.bpc.exception.BpcValveException;
 import lombok.Data;
@@ -13,15 +13,19 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-public class TestBeanDemoD extends BaseBpcValve {
+public class TestBeanWithExceptionDemoD extends BaseBpcValve {
 
     private String name = "dddddd";
 
     @Override
     public BpcContext invoke(BpcContext context) throws BpcValveException {
-        log.info(">>>>>>>>>>>{}", name);
+        for (int i = 0; i < 3; i++) {
+            log.info(">>>>>>>>>>>{} {}", name, i);
+            if (i == 2 ) {
                 throw new BpcValveException("出现异常");
-//        return context;
+            }
+        }
+        return context;
     }
 
     @Override

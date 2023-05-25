@@ -2,6 +2,7 @@ package com.wfc.bpc.core;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -32,16 +33,16 @@ public class BpcTodoContext implements BpcContext {
     }
 
     @Override
-    public <T> T getAttribute(String key, Supplier<T> supplier) {
-        T t = this.getAttribute(key);
-        if (t == null && supplier != null) {
-            t = supplier.get();
-            if (t != null) {
-                attributes.put(key, t);
-                return t;
-            }
+    public <T> T getAttribute(String key, Function<String, T> func) {
+        if (attributes == null) {
+            attributes = new ConcurrentHashMap<>(16);
         }
-        return t;
+
+        if (func == null) {
+            return null;
+        }
+
+        return (T) attributes.computeIfAbsent(key, func);
     }
 
     @Override

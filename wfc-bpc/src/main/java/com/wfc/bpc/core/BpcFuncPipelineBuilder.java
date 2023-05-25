@@ -1,5 +1,7 @@
 package com.wfc.bpc.core;
 
+import com.wfc.bpc.core.func.BpcRollbackFunc;
+import com.wfc.bpc.core.func.BpcValveFunc;
 import com.wfc.bpc.exception.BpcValveException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
@@ -20,13 +22,13 @@ public class BpcFuncPipelineBuilder {
     private String pipelineName;
 
     private BpcValveFunc<BpcContext> newPipeline = (ctx) -> {
-        ctx.getAttribute("pipelineStartTime", System::currentTimeMillis);
+        ctx.getAttribute("pipelineStartTime", (x) -> System.currentTimeMillis());
         log.info("[Pipeline-func] 执行pipeline：{}", pipelineName);
         return ctx;
     };
 
     private BpcRollbackFunc<BpcContext> rollbackPipeline = (ctx) -> {
-        log.info("[Pipeline-func] 执行pipeline-rollback-end, spent: {}ms", System.currentTimeMillis() - (long) ctx.getAttribute("RollbackStartTime", null));
+        log.info("[Pipeline-func] 执行pipeline-rollback-end, spent: {}ms", System.currentTimeMillis() - (long) ctx.getAttribute("RollbackStartTime"));
         return ctx;
     };
 
@@ -146,7 +148,7 @@ public class BpcFuncPipelineBuilder {
     private void broke(BpcContext ctx) {
         log.info("[Pipeline-func] 执行pipeline-rollback: {}", pipelineName);
         ctx.setBroken(true);
-        ctx.getAttribute("RollbackStartTime", System::currentTimeMillis);
+        ctx.putAttribute("RollbackStartTime", System.currentTimeMillis());
         rollbackPipeline.rollback(ctx);
     }
 
@@ -156,7 +158,7 @@ public class BpcFuncPipelineBuilder {
                 return ctx;
             }
             ctx.setFinished(true);
-            log.info("[Pipeline-func] 执行pipeline-end：{}, spent: {}ms", pipelineName, System.currentTimeMillis() - (long) ctx.getAttribute("pipelineStartTime", null));
+            log.info("[Pipeline-func] 执行pipeline-end：{}, spent: {}ms", pipelineName, System.currentTimeMillis() - (long) ctx.getAttribute("pipelineStartTime"));
             return ctx;
         }));
     }
