@@ -1,13 +1,11 @@
 package com.wfc.bpc;
 
-import com.wfc.bpc.component.TestBeanDemoA;
-import com.wfc.bpc.component.TestBeanDemoB;
-import com.wfc.bpc.component.TestBeanDemoC;
+import com.wfc.bpc.component.TestInvokeSuccA;
+import com.wfc.bpc.component.TestInvokeFailB;
+import com.wfc.bpc.component.TestInvokeSuccAndRollbackFailC;
 import com.wfc.bpc.component.TestBeanWithExceptionDemoD;
-import com.wfc.bpc.component.TestBeanDemoE;
-import com.wfc.bpc.component.TestBeanDemoF;
-import com.wfc.bpc.component.TestBeanDemoG;
-import com.wfc.bpc.core.BpcFuncPipelineBuilder;
+import com.wfc.bpc.component.TestTimeOutE;
+import com.wfc.bpc.builder.BpcFuncPipBuilder;
 import com.wfc.bpc.core.BpcPipeline;
 import com.wfc.bpc.core.BpcTodoContext;
 import org.junit.Test;
@@ -18,21 +16,21 @@ import org.junit.Test;
  */
 public class PipelineTest {
 
-    BpcPipeline pipeline1 = BpcFuncPipelineBuilder.newInvocation("测试流程")
-            .next(new TestBeanDemoA(), "aaa1")
-                .next(new TestBeanDemoB(), "bbb1")
-                .next(new TestBeanDemoC(), "ccc1")
+    BpcPipeline pipeline1 = BpcFuncPipBuilder.inst("测试流程")
+            .next(new TestInvokeSuccA(), "a")
+                .next(new TestInvokeFailB(), "b")
+                .next(new TestInvokeSuccAndRollbackFailC(), "c")
                 .fork()
-                .and(new TestBeanWithExceptionDemoD(), "ddd1")
-                .and(new TestBeanDemoE(), "eee1")
-                .and(new TestBeanDemoF(), "fff1")
+                .and(new TestInvokeSuccA(), "da1")
+                    .next(new TestInvokeSuccA(), "da2")
+                .and(new TestInvokeSuccA(), "db1")
                 .join()
-                .next(new TestBeanDemoG(), "ggg1")
-                .end();
+                .next(new TestInvokeSuccA(), "e1")
+                .builder();
 
     @Test
     public void test_测试pipeline() {
-        pipeline1.invoke(new BpcTodoContext() {});
+        pipeline1.invoke(new BpcTodoContext());
     }
 
 }

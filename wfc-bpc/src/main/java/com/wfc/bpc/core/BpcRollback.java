@@ -1,7 +1,5 @@
 package com.wfc.bpc.core;
 
-import com.wfc.bpc.exception.BpcRollbackException;
-
 /**
  * @author hui.guo
  * @since 2022/7/6 9:29 下午
@@ -9,14 +7,12 @@ import com.wfc.bpc.exception.BpcRollbackException;
 public interface BpcRollback {
 
     /**
-     * 执行组件
+     * 回滚组件
      *
-     * @param context
+     * @param ctx
      *
-     * @return
-     * @throws BpcRollbackException
+     * @return boolean
      */
-    BpcContext rollback(BpcContext context) throws BpcRollbackException;
-
+    boolean rollback(BpcContext ctx);
 
 }

@@ -1,6 +1,7 @@
 package com.wfc.bpc.core.func;
 
 import com.wfc.bpc.core.BpcContext;
+import com.wfc.bpc.exception.BpcPipelineException;
 
 import java.util.Objects;
 
@@ -9,16 +10,16 @@ import java.util.Objects;
  * @since 2022/7/5 5:10 下午
  */
 @FunctionalInterface
-public interface BpcValveFunc<T extends BpcContext> {
+public interface BpcValveFunc {
 
     /**
      * 执行组件
      *
-     * @param t
+     * @param ctx
      *
      * @return
      */
-    T invoke(T t);
+    boolean invoke(BpcContext ctx);
 
     /**
      * 下一个执行的组件
@@ -27,8 +28,14 @@ public interface BpcValveFunc<T extends BpcContext> {
      *
      * @return
      */
-    default BpcValveFunc<T> andThen(BpcValveFunc<T> after) {
+    default BpcValveFunc andThen(BpcValveFunc after) {
         Objects.requireNonNull(after);
-        return (T t) -> after.invoke(invoke(t));
+        return (x) -> {
+            boolean result = invoke(x);
+            if (!result) {
+                throw new BpcPipelineException("");
+            }
+            return after.invoke(x);
+        };
     }
 }

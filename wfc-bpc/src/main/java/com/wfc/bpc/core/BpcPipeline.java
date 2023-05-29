@@ -1,19 +1,17 @@
 package com.wfc.bpc.core;
 
-import com.wfc.bpc.exception.BpcPipelineException;
-
 /**
  * @author hui.guo
  * @since 2022/7/1 5:37 下午
  */
-public interface BpcPipeline<T extends BpcContext> {
+public interface BpcPipeline {
 
     /**
      * pipeline执行
      *
-     * @param t
+     * @param ctx
      *
-     * @throws BpcPipelineException
+     * @return boolean
      */
-    void invoke(T t) throws BpcPipelineException;
+    boolean invoke(BpcContext ctx);
 }

@@ -2,7 +2,6 @@ package com.wfc.bpc.component;
 
 import com.wfc.bpc.core.BaseBpcValve;
 import com.wfc.bpc.core.BpcContext;
-import com.wfc.bpc.exception.BpcValveException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,18 +11,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-public class TestBeanWithExceptionDemoD extends BaseBpcValve {
+public class TestInvokeSuccAndRollbackFailC extends BaseBpcValve {
 
     @Override
     public boolean invoke(BpcContext context) {
-        for (int i = 0; i < 3; i++) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-            }
-            if (i == 2) {
-                throw new BpcValveException("出现异常");
-            }
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
         }
         return true;
     }
@@ -34,6 +28,6 @@ public class TestBeanWithExceptionDemoD extends BaseBpcValve {
             Thread.sleep(10);
         } catch (InterruptedException e) {
         }
-        return true;
+        return false;
     }
 }

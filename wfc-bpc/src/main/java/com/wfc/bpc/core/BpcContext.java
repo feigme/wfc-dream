@@ -1,7 +1,6 @@
 package com.wfc.bpc.core;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * 上下文
@@ -15,11 +14,11 @@ public interface BpcContext extends BpcStates {
      * 获取属性
      *
      * @param <T>
-     *
      * @param key
+     *
      * @return
      */
-    <T> Object getAttribute(String key);
+    <T> T getAttribute(String key);
 
     /**
      * 放入属性

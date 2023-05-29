@@ -1,6 +1,7 @@
 package com.wfc.bpc.core.func;
 
 import com.wfc.bpc.core.BpcContext;
+import com.wfc.bpc.exception.BpcPipelineException;
 
 import java.util.Objects;
 
@@ -9,16 +10,16 @@ import java.util.Objects;
  * @since 2022/7/6 9:24 下午
  */
 @FunctionalInterface
-public interface BpcRollbackFunc<T extends BpcContext> {
+public interface BpcRollbackFunc {
 
     /**
      * 执行组件
      *
-     * @param t
+     * @param ctx
      *
-     * @return
+     * @return boolean
      */
-    T rollback(T t);
+    boolean rollback(BpcContext ctx);
 
     /**
      * 下一个执行的组件
@@ -27,8 +28,14 @@ public interface BpcRollbackFunc<T extends BpcContext> {
      *
      * @return
      */
-    default BpcRollbackFunc<T> andThen(BpcRollbackFunc<T> before) {
+    default BpcRollbackFunc andThen(BpcRollbackFunc before) {
         Objects.requireNonNull(before);
-        return (T t) -> rollback(before.rollback(t));
+        return (x) -> {
+            boolean result = before.rollback(x);
+            if (!result) {
+                throw new BpcPipelineException("");
+            }
+            return rollback(x);
+        };
     }
 }

@@ -9,7 +9,7 @@ import com.wfc.bpc.exception.BpcRollbackException;
 public abstract class BaseBpcValve implements BpcValve, BpcRollback {
 
     @Override
-    public BpcContext rollback(BpcContext bpcContext) throws BpcRollbackException {
-        return bpcContext;
+    public boolean rollback(BpcContext bpcContext) throws BpcRollbackException {
+        return true;
     }
 }
