@@ -194,7 +194,7 @@ public class BpcFuncPipeline implements BpcPipeline {
             return (ctx) -> {
                 long rs = System.currentTimeMillis();
                 bpcRollback.rollback(ctx);
-                log.info("[Pipeline-func] rollback valve: {}, spent: {}ms", valveName, System.currentTimeMillis() - rs);
+                log.info("[{}] rollback valve: {}, spent: {}ms", ctx.getId(), valveName, System.currentTimeMillis() - rs);
                 return true;
             };
         }
