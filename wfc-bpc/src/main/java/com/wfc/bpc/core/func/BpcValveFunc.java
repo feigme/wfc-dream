@@ -33,7 +33,7 @@ public interface BpcValveFunc {
         return (x) -> {
             boolean result = invoke(x);
             if (!result) {
-                throw new BpcPipelineException("");
+                throw new BpcPipelineException("执行结果失败");
             }
             return after.invoke(x);
         };

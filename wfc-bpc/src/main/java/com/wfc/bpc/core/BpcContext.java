@@ -11,6 +11,12 @@ import java.util.function.Function;
 public interface BpcContext extends BpcStates {
 
     /**
+     *
+     * @return
+     */
+    String getId();
+
+    /**
      * 获取属性
      *
      * @param <T>

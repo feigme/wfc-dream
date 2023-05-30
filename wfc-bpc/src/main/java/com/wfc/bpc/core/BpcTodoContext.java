@@ -1,9 +1,9 @@
 package com.wfc.bpc.core;
 
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author hui.guo
@@ -15,6 +15,16 @@ public class BpcTodoContext implements BpcContext {
     private boolean broken = false;
     private boolean finished = false;
     private String message;
+    private String id;
+
+    @Override
+    public String getId() {
+        return this.id;
+    }
+
+    public BpcTodoContext() {
+        this.id = UUID.randomUUID().toString().substring(0, 8);
+    }
 
     @Override
     public <T> T getAttribute(String key) {

@@ -1,8 +1,8 @@
 package com.wfc.bpc.component;
 
+
 import com.wfc.bpc.core.BaseBpcValve;
 import com.wfc.bpc.core.BpcContext;
-import com.wfc.bpc.exception.BpcValveException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,28 +12,24 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-public class TestBeanWithExceptionDemoD extends BaseBpcValve {
+public class TestInvokeRepeatSuccA extends BaseBpcValve {
+
+    private String name;
+
+    public TestInvokeRepeatSuccA(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean invoke(BpcContext context) {
         for (int i = 0; i < 3; i++) {
             try {
-                Thread.sleep(10);
+                log.info("repeat name: {}, i: {}", name, i);
+                Thread.sleep(3);
             } catch (InterruptedException e) {
-            }
-            if (i == 2) {
-                throw new BpcValveException("xxxxx");
             }
         }
         return true;
     }
 
-    @Override
-    public boolean rollback(BpcContext context) {
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-        }
-        return true;
-    }
 }

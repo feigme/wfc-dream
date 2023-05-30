@@ -1,11 +1,10 @@
 package com.wfc.bpc;
 
-import com.wfc.bpc.component.TestInvokeSuccA;
-import com.wfc.bpc.component.TestInvokeFailB;
-import com.wfc.bpc.component.TestInvokeSuccAndRollbackFailC;
 import com.wfc.bpc.component.TestBeanWithExceptionDemoD;
-import com.wfc.bpc.component.TestTimeOutE;
-import com.wfc.bpc.builder.BpcFuncPipBuilder;
+import com.wfc.bpc.component.TestInvokeFailB;
+import com.wfc.bpc.component.TestInvokeRepeatSuccA;
+import com.wfc.bpc.component.TestInvokeSuccA;
+import com.wfc.bpc.core.BpcFuncPipeline;
 import com.wfc.bpc.core.BpcPipeline;
 import com.wfc.bpc.core.BpcTodoContext;
 import org.junit.Test;
@@ -16,21 +15,62 @@ import org.junit.Test;
  */
 public class PipelineTest {
 
-    BpcPipeline pipeline1 = BpcFuncPipBuilder.inst("测试流程")
-            .next(new TestInvokeSuccA(), "a")
-                .next(new TestInvokeFailB(), "b")
-                .next(new TestInvokeSuccAndRollbackFailC(), "c")
-                .fork()
-                .and(new TestInvokeSuccA(), "da1")
-                    .next(new TestInvokeSuccA(), "da2")
-                .and(new TestInvokeSuccA(), "db1")
-                .join()
-                .next(new TestInvokeSuccA(), "e1")
+    @Test
+    public void test_简单串行pipeline() {
+        BpcPipeline bpcPipeline = BpcFuncPipeline.build("1层串行pipeline")
+                .next(new TestInvokeSuccA(), "a")
+                .next(new TestInvokeRepeatSuccA("b"), "b")
+                .next(new TestInvokeSuccA(), "c")
                 .builder();
+        bpcPipeline.invoke(new BpcTodoContext());
+    }
 
     @Test
-    public void test_测试pipeline() {
-        pipeline1.invoke(new BpcTodoContext());
+    public void test_串行并行组合pipeline() {
+        BpcPipeline bpcPipeline = BpcFuncPipeline.build("测试流程")
+                .next(new TestInvokeSuccA(), "a")
+                .next(new TestInvokeFailB(), "b")
+                .fork()
+                .and(new TestInvokeRepeatSuccA("c1-a"), "c1-a")
+                .and(new TestInvokeSuccA(), "c2-a")
+                .join()
+                .next(new TestInvokeSuccA(), "d")
+                .builder();
+
+        bpcPipeline.invoke(new BpcTodoContext());
+    }
+
+    @Test
+    public void test_并行后串行pipeline() {
+        BpcPipeline bpcPipeline = BpcFuncPipeline.build("测试流程")
+                .next(new TestInvokeSuccA(), "a")
+                .next(new TestInvokeFailB(), "b")
+                .fork()
+                .and(new TestInvokeSuccA(), "c1-a")
+                .next(new TestInvokeSuccA(), "c1-b")
+                .and(new TestInvokeSuccA(), "c2-a")
+                .join()
+                .next(new TestInvokeSuccA(), "d")
+                .builder();
+
+        bpcPipeline.invoke(new BpcTodoContext());
+    }
+
+
+    @Test
+    public void test_回滚pipeline() {
+        BpcPipeline bpcPipeline = BpcFuncPipeline.build("测试流程")
+                .next(new TestInvokeSuccA(), "a")
+                .next(new TestInvokeFailB(), "b")
+                .fork()
+                .and(new TestInvokeSuccA(), "c1-a")
+                .next(new TestBeanWithExceptionDemoD(), "c1-b")
+                .and(new TestInvokeSuccA(), "c2-a")
+                .join()
+                .next(new TestInvokeSuccA(), "d")
+                .builder();
+
+        bpcPipeline.invoke(new BpcTodoContext());
     }
 
 }

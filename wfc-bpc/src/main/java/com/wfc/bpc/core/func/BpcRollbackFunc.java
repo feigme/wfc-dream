@@ -33,7 +33,7 @@ public interface BpcRollbackFunc {
         return (x) -> {
             boolean result = before.rollback(x);
             if (!result) {
-                throw new BpcPipelineException("");
+                throw new BpcPipelineException("回滚执行结果失败");
             }
             return rollback(x);
         };

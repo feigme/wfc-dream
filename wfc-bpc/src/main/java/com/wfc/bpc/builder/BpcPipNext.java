@@ -14,12 +14,14 @@ public interface BpcPipNext {
      *
      * @param bpcValve
      * @param valveName
+     *
      * @return
      */
     BpcPipNext next(BpcValve bpcValve, String valveName);
 
     /**
      * 并行处理valve
+     *
      * @return
      */
     BpcPipFork fork();
