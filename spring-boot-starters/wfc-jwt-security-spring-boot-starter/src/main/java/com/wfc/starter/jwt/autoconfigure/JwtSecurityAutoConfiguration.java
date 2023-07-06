@@ -36,22 +36,19 @@ import java.util.Arrays;
 public class JwtSecurityAutoConfiguration {
 
     @Bean
-    @ConfigurationProperties(prefix = "security.jwt")
+    @ConfigurationProperties("security.jwt")
     public JwtProperties jwtProperties() {
-        log.info("-----JwtProperties------");
         return new JwtProperties();
     }
 
     @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
     public PasswordEncoder passwordEncoder() {
-        log.info("-----PasswordEncoder------");
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public TokenHelper tokenHelper(JwtProperties jwtProperties) {
-        log.info("----TokenHelper-------");
         return new TokenHelper(jwtProperties);
     }
 
@@ -75,7 +72,6 @@ public class JwtSecurityAutoConfiguration {
         @Bean
         @Override
         public AuthenticationManager authenticationManagerBean() throws Exception {
-            log.info("----AuthenticationManager-------");
             return super.authenticationManagerBean();
         }
 

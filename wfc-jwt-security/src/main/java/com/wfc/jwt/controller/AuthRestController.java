@@ -36,10 +36,7 @@ public class AuthRestController {
 
     @PostMapping(value = "${security.jwt.create-auth-token-path:/api/auth/login}")
     public AuthToken createAuthenticationToken(@RequestBody AuthRequest credentials) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(credentials.getUserName(), credentials.getPassword())
-        );
-
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUserName(), credentials.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jws = tokenHelper.generateToken(((User) authentication.getPrincipal()).getUsername());
         return new AuthToken(jws, jwtProperties.getExpiresIn());
@@ -56,9 +53,9 @@ public class AuthRestController {
     @PostMapping(value = "${security.jwt.auth-me-path:/api/auth/me}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<AuthUser> me() {
-        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Set<String> roleSet = loginUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
-        AuthUser authUser = new AuthUser(loginUser.getUsername(), roleSet);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Set<String> roleSet = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+        AuthUser authUser = new AuthUser(authentication.getPrincipal().toString(), roleSet);
         return ResponseEntity.ok(authUser);
     }
 

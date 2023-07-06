@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,7 @@ public class JwtProperties {
     @NotEmpty(message = "header不能为空")
     private String header = "Authorization";
 
-    @NotEmpty(message = "expiresIn不能为空")
+    @NotNull(message = "expiresIn不能为空")
     @Positive(message = "expiresIn必须大于0")
     private Long expiresIn = DEFAULT_JWT_TOKEN_EXPIRES;
 
