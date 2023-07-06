@@ -17,9 +17,8 @@ public class EventBusStopListener implements ApplicationListener<ContextClosedEv
 
     @Override
     public void onApplicationEvent(ContextClosedEvent contextClosedEvent) {
-        log.info("[wfcEventBus] begin to close");
+        log.info("[wfcEventBus] begin to close, queue size: {}", wfcEventBus.queueSize());
         long s = System.currentTimeMillis();
-        log.info("[wfcEventBus] queue size: {}", wfcEventBus.queueSize());
         while (wfcEventBus.queueSize() > 0) {
             try {
                 log.info("[wfcEventBus] queue left: {}, pls wait a moment", wfcEventBus.queueSize());

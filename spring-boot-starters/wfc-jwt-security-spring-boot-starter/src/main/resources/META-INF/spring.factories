@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wfc.starter.jwt.autoconfigure.JwtSecurityAutoConfiguration

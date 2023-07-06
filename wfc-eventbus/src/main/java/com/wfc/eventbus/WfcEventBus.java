@@ -33,6 +33,7 @@ public class WfcEventBus {
                 new ThreadFactoryBuilder().setNameFormat("eventbus-%d").build(),
                 (r, executor1) -> log.error("[wfcEventBus] EventBusError, event task was rejected, task={}, poolStatus={}", r, poolStatus()));
         eventBus = new AsyncEventBus(executor);
+        log.info("[wfcEventBus] init threadPool, {}", conf);
     }
 
     private Map<String, Number> poolStatus() {

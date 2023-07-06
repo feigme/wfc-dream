@@ -3,7 +3,8 @@ package com.wfc.starter.dal.demo.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wfc.starter.dal.demo.entity.DemoUserDO;
+import com.wfc.show.dal.demo.entity.DemoUserDO;
+import com.wfc.show.dal.demo.mapper.DemoUserMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,6 @@ import java.util.List;
 
 /**
  * @author 飞影
- * @create by 2019-08-30 10:33
  */
 @RunWith(SpringRunner.class)
 @EnableAutoConfiguration

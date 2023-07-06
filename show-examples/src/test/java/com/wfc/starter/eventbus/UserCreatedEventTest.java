@@ -1,5 +1,6 @@
 package com.wfc.starter.eventbus;
 
+import com.wfc.eventbus.WfcEventBus;
 import com.wfc.eventbus.event.UserCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

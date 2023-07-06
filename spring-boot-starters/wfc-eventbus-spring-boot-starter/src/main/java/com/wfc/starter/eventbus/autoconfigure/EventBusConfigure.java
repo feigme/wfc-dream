@@ -6,6 +6,7 @@ import com.wfc.eventbus.EventBusStopListener;
 import com.wfc.eventbus.WfcEventBus;
 import com.wfc.eventbus.config.EventBusConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +16,17 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022/6/5 8:32 下午
  */
 @Configuration
-@EnableConfigurationProperties(EventBusProperties.class)
 public class EventBusConfigure {
 
-    @Autowired
-    private EventBusProperties eventBusProperties;
+    @Bean
+    @ConfigurationProperties(prefix = "wfc.eventbus")
+    public EventBusConfig eventBusConfig(){
+        return new EventBusConfig();
+    }
 
     @Bean
-    public WfcEventBus eventBus() {
-        EventBusConfig config = new EventBusConfig();
-        config.setCorePoolSize(eventBusProperties.getCorePoolSize());
-        config.setKeepAliveTime(eventBusProperties.getKeepAliveTime());
-        config.setMaxPoolSize(eventBusProperties.getMaxPoolSize());
-        config.setMaxQueueSize(eventBusProperties.getMaxQueueSize());
-        return new WfcEventBus(config);
+    public WfcEventBus eventBus(EventBusConfig eventBusConfig) {
+        return new WfcEventBus(eventBusConfig);
     }
 
     @Bean

@@ -1,6 +1,6 @@
 package com.wfc.starter;
 
-import com.wfc.starter.dal.demo.entity.DemoUserDO;
+import com.wfc.show.dal.demo.entity.DemoUserDO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.joda.time.DateTime;

@@ -25,6 +25,7 @@
         <module>wfc-eventbus</module>
         <module>wfc-bpc</module>
         <module>wx-tools</module>
+        <module>wfc-jwt-security</module>
     </modules>
 
 </project>
