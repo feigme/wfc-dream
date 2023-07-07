@@ -13,7 +13,7 @@ debug：当此属性为true时，将打印出logback内部日志信息，实时�
     <!--
     子节点<contextName>用来设置上下文名称，每个logger都关联到logger上下文，默认上下文名称为default。可以用<contextName>其他名称来区分不同应用程序的记录，一旦设置，不能修改。
     -->
-    <contextName>test</contextName>
+    <contextName>example</contextName>
 
     <!--
     子节点<property>用来定义变量值，通过该标签定义的值会被插入到logger上下文中，可以用"${变量的name}"来取得变量的值，
@@ -39,8 +39,7 @@ debug：当此属性为true时，将打印出logback内部日志信息，实时�
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
-            </pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
         </layout>
     </appender>
 
@@ -147,7 +146,7 @@ debug：当此属性为true时，将打印出logback内部日志信息，实时�
     %red(%-5level)              %red()标红显示
     %n                          空行
     -->
-    %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+<!--    %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
     <!--            </pattern>-->
     <!--        </layout>-->
     <!--

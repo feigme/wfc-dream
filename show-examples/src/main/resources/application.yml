@@ -41,3 +41,7 @@ wfc:
     maxPoolSize: 4
     maxQueueSize: 100
     keepAliveTime: 5
+
+logging:
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace

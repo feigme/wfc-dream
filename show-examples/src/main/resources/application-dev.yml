@@ -1,6 +1,7 @@
 log.location: /Users/guohui/temp/log
 log.sql.level: info
 
+
 # 数据库配置
 spring:
   datasource:
