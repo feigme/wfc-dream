@@ -5,9 +5,7 @@ import com.wfc.eventbus.EventBusStartListener;
 import com.wfc.eventbus.EventBusStopListener;
 import com.wfc.eventbus.WfcEventBus;
 import com.wfc.eventbus.config.EventBusConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +18,7 @@ public class EventBusConfigure {
 
     @Bean
     @ConfigurationProperties(prefix = "wfc.eventbus")
-    public EventBusConfig eventBusConfig(){
+    public EventBusConfig eventBusConfig() {
         return new EventBusConfig();
     }
 

@@ -31,7 +31,7 @@ test:
 install:
 	mvn clean install -Dpmd.skip=true -Dcheckstyle.skip=true -Dmaven.test.skip=true
 
-#> make example: 打包样例工程
+#> make build-example: 打包样例工程
 .PHONY: build-example
 build-example:
 	mvn clean package -pl show-examples -am -Dmaven.test.skip -Dcheckstyle.skip -Dpmd.skip
