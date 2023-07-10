@@ -28,13 +28,12 @@ import java.util.Arrays;
 
 /**
  * @author hui.guo
- * @since 2023/7/6 11:09 上午
+ * @since 2023/7/10 4:58 下午
  */
 @Slf4j
 @Configuration
 @ConditionalOnClass(WebSecurityConfigurerAdapter.class)
 public class JwtSecurityAutoConfiguration {
-
     @Bean
     @ConfigurationProperties("security.jwt")
     public JwtProperties jwtProperties() {
@@ -97,5 +96,4 @@ public class JwtSecurityAutoConfiguration {
             return new TokenAuthFilter(tokenHelper, userDetailsService);
         }
     }
-
 }

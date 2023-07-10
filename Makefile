@@ -5,11 +5,16 @@
 help: Makefile
 	@echo "Choose a command run:"
 	@sed -n 's/^#>//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	
-#> make package: java打包
+
+#> make build: java打包
 .PHONY: build
 build:
 	mvn clean package -Dmaven.test.skip=true
+
+#> make buildNoTest: java打包
+.PHONY: buildNoTest
+buildNoTest:
+	mvn clean package -Dmaven.test.skip -Dcheckstyle.skip -Dpmd.skip
   
 #> make run: 直接运行jar
 .PHONY: run
