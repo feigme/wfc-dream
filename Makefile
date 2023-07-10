@@ -39,4 +39,4 @@ build-example:
 #> make run-example：运行样例工程
 .PHONY: run-example
 run-example:
-	java -jar show-examples/target/show-examples.jar --spring.profiles.active=dev
+	java -jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 show-examples/target/show-examples.jar --spring.profiles.active=dev
