@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wfc.starter.auth.autoconfigure.CustomAuthConfig,\
-com.wfc.starter.auth.autoconfigure.JwtConfig

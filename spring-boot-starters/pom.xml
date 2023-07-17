@@ -21,7 +21,6 @@
     <modules>
         <module>wfc-mybatis-spring-boot-starter</module>
         <module>wfc-swagger-spring-boot-starter</module>
-        <module>wfc-auth-spring-boot-starter</module>
         <module>wfc-wxmp-spring-boot-starter</module>
         <module>wfc-eventbus-spring-boot-starter</module>
         <module>wfc-bpc-spring-boot-starter</module>
