@@ -1,17 +1,18 @@
 package com.wfc.starter.dal;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 /**
  * @author 飞影
- * @create by 2020-09-29 20:19
  */
-@Data
-public class BaseDO {
+@Getter
+@Setter
+public abstract class BaseDO {
 
-    private Long id;
-    private Date gmtCreate;
-    private Date gmtModified;
+    protected Long id;
+    protected Date gmtCreate;
+    protected Date gmtModified;
 }
