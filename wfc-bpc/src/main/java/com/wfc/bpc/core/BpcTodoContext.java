@@ -17,13 +17,13 @@ public class BpcTodoContext implements BpcContext {
     private String message;
     private String id;
 
+    public BpcTodoContext() {
+        this.id = UUID.randomUUID().toString().substring(0, 8);
+    }
+
     @Override
     public String getId() {
         return this.id;
-    }
-
-    public BpcTodoContext() {
-        this.id = UUID.randomUUID().toString().substring(0, 8);
     }
 
     @Override

@@ -26,6 +26,16 @@ run:
 test:
 	mvn test
 
+#> make checkstyle: 运行checkstyle
+.PHONY: checkstyle
+checkstyle:
+	mvn checkstyle:check
+
+#> make pmd: 运行pmd
+.PHONY: pmd
+pmd:
+	mvn pmd:pmd
+
 #> make install: 本地打包，默认不跑测试
 .PHONY: install
 install:

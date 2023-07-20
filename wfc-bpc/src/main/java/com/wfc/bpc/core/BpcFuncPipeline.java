@@ -66,7 +66,7 @@ public class BpcFuncPipeline implements BpcPipeline {
         return this.name;
     }
 
-    public final static BpcPipNext build(String pipelineName) {
+    public static BpcPipNext build(String pipelineName) {
         return new FuncPipBuilder(pipelineName);
     }
 
@@ -78,7 +78,7 @@ public class BpcFuncPipeline implements BpcPipeline {
 
         private BpcFuncPipeline pipeline;
 
-        public FuncPipBuilder(String pipelineName) {
+        FuncPipBuilder(String pipelineName) {
             pipeline = new BpcFuncPipeline(pipelineName);
 
             linkedBpcModel = new BpcDoublyLinkedModel(pipelineName, new SerialValveModel("Start", (ctx) -> {
