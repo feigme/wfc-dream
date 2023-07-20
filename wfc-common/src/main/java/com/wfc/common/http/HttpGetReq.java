@@ -8,6 +8,22 @@ import java.util.Map;
  */
 public interface HttpGetReq extends HttpReqExec {
 
+    /**
+     * 请求参数
+     *
+     * @param key
+     * @param value
+     *
+     * @return
+     */
     HttpPostReq param(String key, String value);
+
+    /**
+     * 请求参数
+     *
+     * @param paramMap
+     *
+     * @return
+     */
     HttpPostReq param(Map<String, String> paramMap);
 }

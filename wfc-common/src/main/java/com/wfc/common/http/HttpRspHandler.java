@@ -10,6 +10,8 @@ public interface HttpRspHandler<T> {
      * 处理返回的字符串
      *
      * @param rspStr
+     *
+     * @return
      */
     T handle(String rspStr);
 

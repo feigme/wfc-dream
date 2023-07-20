@@ -131,6 +131,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
                 <configuration>
                     <!-- 将skip参数设置为true，禁用Checkstyle检查 -->
                     <skip>true</skip>

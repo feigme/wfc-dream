@@ -6,8 +6,22 @@ package com.wfc.common.http;
  */
 public interface HttpReq {
 
+    /**
+     * get请求
+     *
+     * @param url
+     *
+     * @return
+     */
     HttpGetReq get(String url);
 
+    /**
+     * post请求
+     *
+     * @param url
+     *
+     * @return
+     */
     HttpPostReq post(String url);
 
 }

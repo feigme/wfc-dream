@@ -5,5 +5,13 @@ package com.wfc.common.http;
  * @since 2023/5/4 7:30 下午
  */
 public enum HttpReqMethod {
-    GET, POST
+    /**
+     * get
+     */
+    GET,
+
+    /**
+     * post
+     */
+    POST
 }

@@ -26,5 +26,10 @@ public interface BpcPipNext {
      */
     BpcPipFork fork();
 
+    /**
+     * build返回pipeline
+     *
+     * @return
+     */
     BpcPipeline builder();
 }
