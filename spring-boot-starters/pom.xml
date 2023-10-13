@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
+        <artifactId>dream</artifactId>
         <groupId>com.wfc</groupId>
-        <artifactId>toolset</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
+    <packaging>pom</packaging>
 
     <artifactId>spring-boot-starters</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
     <name>Spring Boot Starters</name>
     <description>各个模块的 Spring Boot Starter</description>
