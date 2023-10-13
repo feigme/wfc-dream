@@ -19,6 +19,7 @@ public class TokenHelper {
 
     private final JwtProperties jwtProperties;
 
+    private static final String TOKEN_PREFIX = "Bearer ";
     private static final String AUDIENCE_WEB = "web";
     private static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
@@ -79,7 +80,7 @@ public class TokenHelper {
 
     public String getToken(HttpServletRequest request) {
         String authHeader = getAuthHeaderFromHeader(request);
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (authHeader != null && authHeader.startsWith(TOKEN_PREFIX)) {
             return authHeader.substring(7);
         }
         return null;
