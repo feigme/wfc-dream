@@ -1,8 +1,10 @@
 package com.wfc.jwt.config;
 
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
+
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

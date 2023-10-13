@@ -33,7 +33,7 @@
 
 <!--        <module>show-examples</module>-->
 <!--        <module>wx-tools</module>-->
-<!--        <module>wfc-jwt-security</module>-->
+
     </modules>
 
     <dependencyManagement>
