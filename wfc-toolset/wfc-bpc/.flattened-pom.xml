@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.wfc</groupId>
     <artifactId>wfc-toolset</artifactId>
-    <version>${revision}</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <groupId>com.wfc</groupId>
   <artifactId>wfc-bpc</artifactId>

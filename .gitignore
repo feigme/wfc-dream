@@ -31,4 +31,4 @@ build/
 .vscode/
 
 .DS_Store
-flattened-pom.xml
+.flattened-pom.xml
