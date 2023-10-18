@@ -13,7 +13,7 @@
     <artifactId>wx-tools</artifactId>
     <packaging>pom</packaging>
 
-    <name>wx tools</name>
+    <name>${project.artifactId}</name>
     <description>微信api封装</description>
 
     <modules>

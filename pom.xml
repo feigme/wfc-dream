@@ -29,11 +29,9 @@
     <modules>
         <module>wfc-dependencies</module>
         <module>wfc-toolset</module>
-<!--        <module>spring-boot-starters</module>-->
-
-<!--        <module>show-examples</module>-->
+        <module>spring-boot-starters</module>
 <!--        <module>wx-tools</module>-->
-
+        <module>show-examples</module>
     </modules>
 
     <dependencyManagement>

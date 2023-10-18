@@ -8,21 +8,20 @@
         <groupId>com.wfc</groupId>
         <version>${revision}</version>
     </parent>
-    <packaging>pom</packaging>
 
     <artifactId>spring-boot-starters</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <name>Spring Boot Starters</name>
+    <name>${project.artifactId}</name>
     <description>各个模块的 Spring Boot Starter</description>
 
     <modules>
         <module>wfc-mybatis-spring-boot-starter</module>
-        <module>wfc-swagger-spring-boot-starter</module>
-        <module>wfc-wxmp-spring-boot-starter</module>
+<!--        <module>wfc-swagger-spring-boot-starter</module>-->
+<!--        <module>wfc-wxmp-spring-boot-starter</module>-->
         <module>wfc-eventbus-spring-boot-starter</module>
         <module>wfc-bpc-spring-boot-starter</module>
-        <module>wfc-fsm-spring-boot-starter</module>
+<!--        <module>wfc-fsm-spring-boot-starter</module>-->
         <module>wfc-jwt-security-spring-boot-starter</module>
     </modules>
 

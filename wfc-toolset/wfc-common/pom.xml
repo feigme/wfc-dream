@@ -12,7 +12,7 @@
     <artifactId>wfc-common</artifactId>
     <packaging>jar</packaging>
 
-    <name>wfc common</name>
+    <name>${project.artifactId}</name>
     <description>常用工具</description>
 
     <dependencies>
@@ -58,11 +58,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
         </dependency>
     </dependencies>
 

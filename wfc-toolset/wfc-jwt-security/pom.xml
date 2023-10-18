@@ -12,7 +12,7 @@
     <artifactId>wfc-jwt-security</artifactId>
     <packaging>jar</packaging>
 
-    <name>wfc jwt security</name>
+    <name>${project.artifactId}</name>
     <description>结合spring security和jwt</description>
 
     <dependencies>
