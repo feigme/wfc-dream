@@ -1,5 +1,16 @@
 # Makefile 介绍 https://seisman.github.io/how-to-write-makefile/index.html
 
+# 定义检查 Docker 是否安装的命令
+DOCKER_CHECK = @if ! command -v docker &> /dev/null; then \
+    echo "Error: Docker is not installed. Please install Docker and try again."; \
+    exit 1; \
+fi
+
+DOCKER_COMPOSE_CHECK = @if ! command -v docker-compose &> /dev/null; then \
+   echo "Error: docker-compose is not installed. Please install docker-compose and try again."; \
+   exit 1; \
+fi
+
 # 使用#> 规则自动获取命令介绍
 .PHONY: help
 help: Makefile
@@ -9,9 +20,10 @@ help: Makefile
 #> make build-in-docker: 在本地环境，使用docker编译工程
 .PHONY: build-in-docker
 build-in-docker:
-	# 创建一个本地maven仓库共享的volume
+	$(DOCKER_CHECK)
+	@echo "创建一个跟本地maven仓库共享的docker volume"
 	docker volume create --name=maven-repo-volume --driver local --opt type=none --opt device=${HOME}/.m2/repository --opt o=bind
-    # 在docker中编译项目
+	@echo "在docker中编译项目"
 	docker run -it --rm --name maven-build-docker \
     	-v maven-repo-volume:/root/.m2/repository \
     	-v ${PWD}:/usr/src/workspace \
