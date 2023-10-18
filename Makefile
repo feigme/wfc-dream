@@ -17,11 +17,11 @@ help: Makefile
 	@echo "Choose a command run:"
 	@sed -n 's/^#>//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 
-#> make build-in-docker: 在本地环境，使用docker编译工程
-.PHONY: build-in-docker
-build-in-docker:
-	$(DOCKER_CHECK)
+#> make package-in-docker: 在本地环境，使用docker编译工程
+.PHONY: package-in-docker
+package-in-docker:
 	@echo "创建一个跟本地maven仓库共享的docker volume"
+	$(DOCKER_CHECK)
 	docker volume create --name=maven-repo-volume --driver local --opt type=none --opt device=${HOME}/.m2/repository --opt o=bind
 	@echo "在docker中编译项目"
 	docker run -it --rm --name maven-build-docker \
@@ -30,6 +30,24 @@ build-in-docker:
     	-w /usr/src/workspace \
     	maven:3.6.3 \
     	mvn clean package '-Dmaven.test.skip=true'
+
+#> make run-in-docker: 运行应用的docker
+.PHONY: run-in-docker
+run-in-docker:
+	@echo "启动应用相关的所有镜像"
+	$(DOCKER_COMPOSE_CHECK)
+	docker compose --env-file docker.env up -d
+
+#> make build-docker name=xxx: 构建某个镜像
+.PHONY: build-docker
+build-docker:
+	@if [ -z "$(name)" ]; then \
+		echo "ERROR: name is not provided."; \
+		exit 1; \
+	fi
+	@echo "构建 ${name} 服务的镜像"
+	$(DOCKER_COMPOSE_CHECK)
+	docker compose --env-file docker.env build ${name}
 
 #> make build-with-no-test: java打包
 .PHONY: build-with-no-test
