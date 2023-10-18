@@ -11,6 +11,19 @@ help: Makefile
 build:
 	mvn clean package -Dmaven.test.skip=true
 
+#> make build-in-docker-4-local: 在本地环境，使用docker编译工程
+.PHONY: build-in-docker-4-local
+build-in-docker-4-local:
+	# 创建一个本地maven仓库共享的volume
+	docker volume create --name=maven-repo-volume --driver local --opt type=none --opt device=${HOME}/.m2/repository --opt o=bind
+    # 在docker中编译项目
+	docker run -it --rm --name maven-build-docker \
+    	-v maven-repo-volume:/root/.m2/repository \
+    	-v ${PWD}:/usr/src/workspace \
+    	-w /usr/src/workspace \
+    	maven:3.6.3 \
+    	mvn clean package '-Dmaven.test.skip=true'
+
 #> make buildNoTest: java打包
 .PHONY: buildNoTest
 buildNoTest:
