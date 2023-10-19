@@ -78,7 +78,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>repackage</goal> <!-- 将引入的 jar 打入其中 -->
+                            <goal>repackage</goal> <!-- 子工程打springboot jar -->
                         </goals>
                     </execution>
                 </executions>
