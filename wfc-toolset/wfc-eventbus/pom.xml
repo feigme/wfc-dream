@@ -12,7 +12,7 @@
     <artifactId>wfc-eventbus</artifactId>
     <packaging>jar</packaging>
 
-    <name>wfc eventbus</name>
+    <name>${project.artifactId}</name>
     <description>结合spring使用guava eventbus</description>
 
     <dependencies>

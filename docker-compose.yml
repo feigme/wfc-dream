@@ -1,0 +1,29 @@
+version: "3.4"
+
+name: wfc-compose
+
+services:
+  wmall-admin:
+    container_name: wmall-admin
+    build:
+      context: ./show-examples/wmall-admin/
+    image: wmall-admin:latest
+    restart: unless-stopped
+    ports:
+      - "48080:48080"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      JAVA_OPTS: ${JAVA_OPTS}
+
+  wmall-admin-ui:
+    container_name: wmall-admin-ui
+    build:
+      context: ./show-examples/wmall-admin-ui/
+      args:
+        NODE_ENV:
+          ENV=${NODE_ENV:-production}
+          PUBLIC_PATH=${PUBLIC_PATH:-/}
+    image: wmall-admin-ui
+    restart: unless-stopped
+    ports:
+      - "8080:80"

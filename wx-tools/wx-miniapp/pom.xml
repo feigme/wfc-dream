@@ -14,7 +14,7 @@
     <artifactId>wx-miniapp</artifactId>
     <packaging>jar</packaging>
 
-    <name>wx miniapp</name>
+    <name>${project.artifactId}</name>
     <description>微信小程序api</description>
 
     <build>

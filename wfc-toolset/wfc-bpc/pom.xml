@@ -12,7 +12,7 @@
     <artifactId>wfc-bpc</artifactId>
     <packaging>jar</packaging>
 
-    <name>wfc bpc</name>
+    <name>${project.artifactId}</name>
     <description>流程编排</description>
 
     <dependencies>

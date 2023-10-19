@@ -12,6 +12,8 @@
     <name>${project.artifactId}</name>
     <description>基础 bom 文件，管理整个项目的依赖版本</description>
 
+    <!-- 新加入jar依赖前，检查下spring-boot-dependencies是否已经有了 -->
+
     <properties>
         <revision>1.0-SNAPSHOT</revision>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -44,8 +46,6 @@
                 <artifactId>wfc-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- 新加入jar依赖前，检查下spring-boot-dependencies是否已经有了 -->
 
             <!-- commons -->
             <dependency>

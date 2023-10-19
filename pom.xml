@@ -19,6 +19,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- plugin -->
+        <spring-boot.version>2.7.15</spring-boot.version>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
@@ -29,11 +30,9 @@
     <modules>
         <module>wfc-dependencies</module>
         <module>wfc-toolset</module>
-<!--        <module>spring-boot-starters</module>-->
-
-<!--        <module>show-examples</module>-->
+        <module>spring-boot-starters</module>
 <!--        <module>wx-tools</module>-->
-<!--        <module>wfc-jwt-security</module>-->
+        <module>show-examples</module>
     </modules>
 
     <dependencyManagement>

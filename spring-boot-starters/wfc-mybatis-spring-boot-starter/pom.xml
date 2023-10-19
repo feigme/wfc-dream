@@ -5,13 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wfc</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../../parent/pom.xml</relativePath>
+        <artifactId>spring-boot-starters</artifactId>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>wfc-mybatis-spring-boot-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>mybatis spring-boot-starter</description>
 
     <dependencies>
 
@@ -41,8 +43,8 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
         <dependency>
