@@ -23,7 +23,7 @@ services:
         NODE_ENV:
           ENV=${NODE_ENV:-production}
           PUBLIC_PATH=${PUBLIC_PATH:-/}
-    image: wmall-admin-ui
+    image: wmall-admin-ui:latest
     restart: unless-stopped
     ports:
       - "8080:80"

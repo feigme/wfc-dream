@@ -1,23 +1,24 @@
 # Makefile 介绍 https://seisman.github.io/how-to-write-makefile/index.html
 
-# 定义检查 Docker 是否安装的命令
+# 定义检查，检查 docker 是否安装
 DOCKER_CHECK = @if ! command -v docker &> /dev/null; then \
     echo "Error: Docker is not installed. Please install Docker and try again."; \
     exit 1; \
 fi
 
+# 定义检查，检查 docker-compose 是否安装
 DOCKER_COMPOSE_CHECK = @if ! command -v docker-compose &> /dev/null; then \
    echo "Error: docker-compose is not installed. Please install docker-compose and try again."; \
    exit 1; \
 fi
 
-# 使用#> 规则自动获取命令介绍
+# 自动获取命令的介绍，注意需要使用#> 作为前缀
 .PHONY: help
 help: Makefile
-	@echo "Choose a command run:"
+	@echo "Choose a command to run:"
 	@sed -n 's/^#>//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 
-#> make package-in-docker: 在本地环境，使用docker编译工程
+#> make package-in-docker: 在本地docker环境中，编译打包工程
 .PHONY: package-in-docker
 package-in-docker:
 	@echo "创建一个跟本地maven仓库共享的docker volume"
@@ -49,27 +50,27 @@ build-docker:
 	$(DOCKER_COMPOSE_CHECK)
 	docker compose --env-file docker.env build ${name}
 
-#> make build-with-no-test: java打包
-.PHONY: build-with-no-test
-build-with-no-test:
+#> make build-without-test: 在当前环境，执行mvn package打包
+.PHONY: build-without-test
+build-without-test:
 	mvn clean package -Dmaven.test.skip -Dcheckstyle.skip -Dpmd.skip
   
-#> make test: 运行测试用例
+#> make test: 在当前环境，运行测试用例
 .PHONY: test
 test:
 	mvn test
 
-#> make checkstyle: 运行checkstyle
+#> make checkstyle: 在当前环境，运行checkstyle
 .PHONY: checkstyle
 checkstyle:
 	mvn checkstyle:check
 
-#> make pmd: 运行pmd
+#> make pmd: 在当前环境，运行pmd
 .PHONY: pmd
 pmd:
 	mvn pmd:pmd
 
-#> make install: 本地打包，默认不跑测试
+#> make install: 在当前环境，执行mvn install，不执行测试
 .PHONY: install
 install:
 	mvn clean install -Dpmd.skip=true -Dcheckstyle.skip=true -Dmaven.test.skip=true

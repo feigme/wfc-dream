@@ -77,7 +77,7 @@
                         </rulesets>
                         <printFailingErrors>true</printFailingErrors>
                         <!--指定失败文件的失败规则排除-->
-                        <!--                        <excludeFromFailureFile>pmd-skip.properties</excludeFromFailureFile>-->
+<!--                        <excludeFromFailureFile>pmd-skip.properties</excludeFromFailureFile>-->
                     </configuration>
                     <executions>
                         <execution>
@@ -168,7 +168,6 @@
         </plugins>
     </build>
 
-    <!-- 使用 huawei / aliyun 的 Maven 源 -->
     <repositories>
         <repository>
             <id>huaweicloud</id>
