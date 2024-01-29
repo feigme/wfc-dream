@@ -18,6 +18,7 @@
         <module>wfc-eventbus</module>
         <module>wfc-bpc</module>
         <module>wfc-jwt-security</module>
+        <module>wfc-fsm</module>
     </modules>
 
 </project>
