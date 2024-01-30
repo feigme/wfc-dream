@@ -70,7 +70,7 @@ public class FsmMachineTest {
     @Test
     public void test_plantUml() {
         FsmPlant fsmMachine = (FsmPlant) WfcFsmMachineFactory.get("test1");
-        String uml = FsmUmlPlantHelper.showPlantUml(fsmMachine);
+        String uml = FsmPlantUmlHelper.plantUml(fsmMachine);
         System.out.println(uml);
     }
 
