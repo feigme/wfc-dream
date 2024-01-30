@@ -10,7 +10,7 @@ import java.util.Map;
  * @since 2022/7/13 11:28 下午
  */
 @Slf4j
-public class WfcFsmMachine<S, E, C> implements FsmMachine<S, E, C> {
+public class WfcFsmMachine<S, E, C> implements FsmMachine<S, E, C>, FsmPlant<S, E, C> {
 
     private final String machineId;
 
@@ -35,6 +35,11 @@ public class WfcFsmMachine<S, E, C> implements FsmMachine<S, E, C> {
     @Override
     public String getMachineId() {
         return this.machineId;
+    }
+
+    @Override
+    public Map<S, FsmState<S, E, C>> getStateMap() {
+        return stateMap;
     }
 
     private FsmTransition<S, E, C> routeTransition(S stateId, E event) {

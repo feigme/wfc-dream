@@ -27,16 +27,29 @@ public class FsmMachineTest {
     static {
         FsmMachineBuilder<TradeStatus, TradeEvent, Context> fsmMachineBuilder = WfcFsmMachineBuilderFactory.create("test1");
         fsmMachineBuilder.externalTransition()
-                .from(TradeStatus.INIT)
-                .to(TradeStatus.SUCCESS)
+                .from(TradeStatus.INIT).to(TradeStatus.SUCCESS)
                 .on(TradeEvent.FULL_PAY_SUCESS)
-                .action((fromStateId, toStateId, event, ctx) -> System.out.println("init to success"));
+                .action((fromStateId, toStateId, event, ctx) -> System.out.println("===>支付成功"));
 
         fsmMachineBuilder.externalTransition()
-                .from(TradeStatus.INIT)
-                .to(TradeStatus.PAYING)
+                .from(TradeStatus.INIT).to(TradeStatus.PAYING)
                 .on(TradeEvent.PAY)
-                .action((fromStateId, toStateId, event, ctx) -> System.out.println("===>pay"));
+                .action((fromStateId, toStateId, event, ctx) -> System.out.println("===>支付"));
+
+        fsmMachineBuilder.externalTransition()
+                .from(TradeStatus.INIT).to(TradeStatus.CLOSE)
+                .on(TradeEvent.CLOSE)
+                .action((fromStateId, toStateId, event, ctx) -> System.out.println("===>关闭"));
+
+        fsmMachineBuilder.externalTransition()
+                .from(TradeStatus.PAYING).to(TradeStatus.SUCCESS)
+                .on(TradeEvent.FULL_PAY_SUCESS)
+                .action((fromStateId, toStateId, event, ctx) -> System.out.println("===>支付成功"));
+
+        fsmMachineBuilder.externalTransition()
+                .from(TradeStatus.PAYING).to(TradeStatus.CLOSE)
+                .on(TradeEvent.CLOSE)
+                .action((fromStateId, toStateId, event, ctx) -> System.out.println("===>关闭"));
 
         fsmMachineBuilder.build();
     }
@@ -52,6 +65,13 @@ public class FsmMachineTest {
     public void test_fail() {
         FsmMachine<TradeStatus, TradeEvent, Context> fsmMachine = WfcFsmMachineFactory.get("test1");
         Assertions.assertThrows(FsmException.class, () -> fsmMachine.fireEvent(TradeStatus.CLOSE, TradeEvent.CLOSE, new Context()));
+    }
+
+    @Test
+    public void test_plantUml() {
+        FsmPlant fsmMachine = (FsmPlant) WfcFsmMachineFactory.get("test1");
+        String uml = FsmUmlPlantHelper.showPlantUml(fsmMachine);
+        System.out.println(uml);
     }
 
 
