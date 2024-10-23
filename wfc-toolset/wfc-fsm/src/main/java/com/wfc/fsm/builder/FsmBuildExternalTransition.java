@@ -13,6 +13,6 @@ public interface FsmBuildExternalTransition<S, E, C> {
      *
      * @return
      */
-    FsmBuildFrom from(S s);
+    FsmBuildFrom<S, E, C> from(S s);
 
 }

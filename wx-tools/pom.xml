@@ -4,24 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
+        <artifactId>dream</artifactId>
         <groupId>com.wfc</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../parent/pom.xml</relativePath>
+        <version>${revision}</version>
     </parent>
-
-    <artifactId>wx-tools</artifactId>
     <packaging>pom</packaging>
 
-    <name>${project.artifactId}</name>
+    <artifactId>wx-tools</artifactId>
     <description>微信api封装</description>
 
     <modules>
         <module>wx-miniapp</module>
     </modules>
-
-    <dependencies>
-
-    </dependencies>
 
 </project>

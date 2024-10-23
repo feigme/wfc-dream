@@ -15,6 +15,7 @@
 
     <modules>
         <module>wmall-admin</module>
+        <module>wmall-tp</module>
     </modules>
 
 </project>
